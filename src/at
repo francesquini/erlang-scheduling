@@ -1,0 +1,5 @@
+#!/usr/local/bin/escript
+
+main ([Filename]) ->
+	trace_analysis:analyze_file(Filename).
+

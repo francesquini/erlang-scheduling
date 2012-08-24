@@ -1,0 +1,95 @@
+-module(mandel).
+
+-export([run/0]).
+
+-define(Mult({X0, X1}, {Y0, Y1}), {X0 * Y0 - X1 * Y1,  X0 * Y1 + Y0 * X1}).
+-define(Sum({X0, X1}, {Y0, Y1}), {X0 + Y0,  X1 + Y1}).
+-define(Norma({Z0, Z1}), Z0*Z0 + Z1 * Z1). 
+
+-record(
+   mandel,
+   {
+		size,
+		delta,
+		max_complex = 2,
+		max_iter = 100,
+		max_colors = 2000,
+		bailout2 = 4	
+	}
+).
+
+run() ->
+	Size = 10,
+	Image = calculate_image(Size),	
+	io:format("~p~n",[Image]).
+
+calculate_image (Size) ->
+	[ calculate_pixel(Size, X, Y) || X <- lists:seq(1, Size), Y <- lists:seq(1, Size)].
+
+
+calculate_pixel(MandelSet, X, Y) ->
+	Size2 = Mandel#mandel.size / 2,
+	Ix = (X - Size2) * Mandel#mandel.delta / 8 - 0.5;
+	Iy = (Y - Size2) * Mandel#mandel.delta / 8 + 0.5;
+	Iters = calculate_complex(Mandel, Ix, Iy),
+	Color = Iters mod Mandel#mandel.max_colors.
+
+
+calculate_complex (Mandel, Ix, Iy) ->
+	C = {Ix, Iy},
+	Z = {0, 0},
+	calculate_complex_loop (C, Z, Mandel).
+	
+calculate_complex_loop (C, Z, Mandel) ->
+	calculate_complex_loop (C, Z, 0, 0, Mandel#mandel.max_iter, Mandel#mandel.bailout2).
+																					 
+calculate_complex_loop (C, Z, Iter, Norma, MaxIter, Bailout) when Iter > MaxIter orelse Norma > Bailout ->
+	Iter;
+calculate_complex_loop (C, Z, Iter, Norma, MaxIter, Bailout) ->
+	Z2 = ?Sum (?Mult(Z,Z),C),
+	Norma = ?Norma(Z),
+	calculate_complex_loop (C, Z2, Iter + 1, MaxIter, Bailout).
+	
+	
+	
+function calculaMandelComplexo (ix,iy: real):integer;
+          var
+             maxIter,cores,iter:integer;
+             z,c: pt;
+             bailoutA2,normaA2:real;
+
+          begin
+              maxIter:=100;
+              cores:=2000;
+              iter:=0;
+              bailoutA2:=4;
+              c[0]:=ix;
+              c[1]:=iy;
+              z[0]:=0;
+              z[1]:=0;
+              repeat
+              begin
+                   iter:=iter+1;
+                   z:=som(mul(z,z),c);
+                   normaA2:=z[0]*z[0]+z[1]*z[1];
+              end until (iter>maxiter) or (normaA2 > bailoutA2);
+              calculaMandelComplexo:=iter mod cores;
+          end;
+
+
+
+%% function CalculaMandelPixel(x,y:integer):integer;
+%%           var
+%%              maxComplex,
+%%              ix,iy,dx,dy,tmp: real  ;
+%%           begin
+%%                maxComplex:=2;
+%%                dx:=maxComplex*2/tx;
+%%                dy:=maxComplex*2/ty;
+%%                if (dx<dy ) then dx:=dy;
+%%                ix:=(x-tx/2)*dx;
+%%                iy:=(y-ty/2)*dy;
+%%                ix:=ix/8- 0.5;
+%%                iy:=iy/8+ 0.5;
+%%                CalculaMandelPixel:=calculaMandelComplexo(ix,iy);
+%%           end;

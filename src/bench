@@ -1,0 +1,4 @@
+#!/usr/local/bin/escript
+
+main (_) ->
+	bench:bench().

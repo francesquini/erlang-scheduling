@@ -1,0 +1,135 @@
+-module(lat_speed).
+
+-export([run_tests/0, run_tests/3]).
+
+%local export
+-export([sender_loop/5, receiver_loop/2, generate_payloads/1]).
+
+combinations() -> %1 based
+	[ {1, 1}, {1, 2}, {1, 3} ]. %Warp
+	%[ {1, 13}, {1, 5}, {1, 2} ]. %idkonn
+	%[ {1, 2}, {1, 5}]. %idrouille
+
+run_tests() -> %defaults
+	run_tests("/tmp/", 100, 16).
+
+run_tests(OutputPath, N, PayloadSize) ->
+	HeapSize = 1 bsl (PayloadSize + 2),
+	VHeapSize = 200 * HeapSize,
+	erlang:system_flag(min_bin_vheap_size, VHeapSize),	
+	erlang:system_flag(min_heap_size, HeapSize),
+	io:format("~p (Requested: ~p)~n~p (Requested: ~p)~n",
+		[erlang:system_info(min_bin_vheap_size), VHeapSize, erlang:system_info(min_heap_size), HeapSize]),
+	erlang:system_flag(scheduler_bind_type, no_spread),
+	io:format("Bind type: ~p ~n", [erlang:system_info(scheduler_bind_type)]),
+	io:format("Bindings: ~p ~n", [erlang:system_info(scheduler_bindings)]),	
+	io:format("Running with schedulers: ~p~n", [combinations()]),
+	[run_tests(OutputPath, S, R, N, PayloadSize) || {S, R} <- combinations()],
+	ok.
+
+run_tests(OutputPath, SSched, RSched, N, PayloadSize) ->
+	[do_run_tests(OutputPath, SSched, RSched, N, Payload) || Payload <- generate_payloads(PayloadSize)],
+	ok.		  
+	
+do_run_tests(OutputPath, SSched, RSched, N, Payload) ->
+	Label = utils:to_string(SSched) ++ "-" ++ utils:to_string(RSched),
+	Size = utils:to_string((byte_size(list_to_binary(Payload)))),
+	Filename = OutputPath ++ "Latency-" ++ Label ++ "-" ++ Size,
+	file:delete(Filename),
+	{ok, File} = file:open(Filename, [read, write]),
+	io:fwrite(File, "#~s~n", [Size]),
+	Receiver = spawn_link(?MODULE, receiver_loop, [self(), RSched]),
+	Sender = spawn_link(?MODULE, sender_loop, [Receiver, N, SSched, Payload, File]),
+	Receiver ! Sender,
+	receive ended -> ok end,
+	file:close(File),
+	garbage_collect().
+
+
+sender_loop (Receiver, Count, Scheduler, Payload, File) ->
+	utils:set_scheduler(Scheduler),
+	Scheduler = utils:current_scheduler(),
+	receive ok -> ok end,
+	sender_loop(Receiver, Count, Payload, File).
+sender_loop(Receiver, 0, _Payload, _File) ->
+	Receiver ! stop;
+sender_loop(Receiver, Count, Payload, File) ->
+	Before = os:timestamp(),
+	Receiver ! Payload,
+	receive 
+		_Payload -> 
+			Diff = timer:now_diff(os:timestamp(), Before),
+			D2 = if 
+				Diff == 0 -> 
+					0.000001;
+				true -> 
+					Diff
+			end,
+			io:fwrite(File,"~p~n", [D2]),
+			sender_loop(Receiver, Count -1, Payload, File)
+	end.
+
+receiver_loop(Orig, Scheduler) ->
+	utils:set_scheduler(Scheduler),
+	Scheduler = utils:current_scheduler(),
+	receive 
+		Sender when is_pid(Sender) ->
+			Sender ! ok,
+			do_receiver_loop(Orig, Sender)
+	end.
+
+do_receiver_loop(Orig, Sender) ->
+	receive
+		stop ->
+			Orig ! ended;
+		 Payload ->
+			Sender ! Payload,
+			do_receiver_loop(Orig, Sender)
+	end.
+
+generate_payloads(N) ->
+	generate_payloads(N, [[42]]).
+generate_payloads(0, Acc) ->
+	Acc;
+generate_payloads(N, Acc = [H | _]) ->
+	generate_payloads(N - 1, [H ++ H | Acc]).
+
+
+%% count(Filename) ->
+%% 	NewFilename = Filename ++ ".count",
+%% 	file:delete(NewFilename),
+%% 	{ok, WriteFile} = file:open(NewFilename, [read, write]),
+%% 	{ok, ReadFile} = file:open(Filename, [read]),
+%% 	count(ReadFile, WriteFile, 1000000).
+%% 
+%% count(ReadFile, WriteFile, Interval) ->
+%% 	{ok, Line} = file:read_line(ReadFile),
+%% 	{Now, "\n"} = string:to_integer(Line),
+%% 	End = Now + Interval,
+%% 	count(ReadFile, WriteFile, Interval, End, 1).
+%% 
+%% count(ReadFile, WriteFile, Interval, End, Count) ->
+%% 	case file:read_line(ReadFile) of
+%% 		{ok, Line} ->
+%% 			case string:to_integer(Line) of
+%% 				{Now, "\n"} when Now > End ->
+%% 					io:fwrite(WriteFile,"~p\t~p~n", [End, Count]),
+%% 					count(ReadFile, WriteFile, Interval, Now + Interval, 1);
+%% 				_ ->
+%% 					count(ReadFile, WriteFile, Interval, End, Count + 1)
+%% 			end;
+%% 		eof ->
+%% 			file:close(WriteFile),
+%% 			file:close(ReadFile)
+%% 	end.
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	

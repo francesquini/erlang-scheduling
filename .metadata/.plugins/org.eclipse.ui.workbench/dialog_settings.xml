@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.internal.dialogs.WorkbenchEditorsDialog">
+		<item value="0" key="sort"/>
+		<item value="false" key="allPersp"/>
+		<list key="bounds">
+			<item value="253"/>
+			<item value="954"/>
+			<item value="946"/>
+			<item value="641"/>
+		</list>
+		<list key="columns">
+			<item value="306"/>
+			<item value="612"/>
+		</list>
+	</section>
+	<section name="WorkbenchPreferenceDialogSettings">
+		<item value="78" key="DIALOG_Y_ORIGIN"/>
+		<item value="449" key="DIALOG_X_ORIGIN"/>
+	</section>
+	<section name="ImportExportAction">
+		<item value="org.erlide.ui.ErlangProjectImport.wizard" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
+		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
+			<item value="org.erlide.ui.ErlangProjectImport.category"/>
+		</list>
+	</section>
+</section>

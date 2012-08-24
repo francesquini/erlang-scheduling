@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;Mandel/src/mandel_par1.erl&apos; to &apos;mandel_par.erl&apos;" description="Rename resource &apos;mandel_par1.erl&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/mandel_par1.erl" name="mandel_par.erl" stamp="1340915340136" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;Mandel/include/graph.hrl&apos; to &apos;mandel.hrl&apos;" description="Rename resource &apos;graph.hrl&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="include/graph.hrl" name="mandel.hrl" stamp="1340923298426" updateReferences="true"/>
+</session>

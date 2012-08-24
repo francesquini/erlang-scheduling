@@ -1,0 +1,9 @@
+-module(mandel).
+
+-export([run/0]).
+
+run() ->
+	arr = array:new(),
+	
+	
+	io:format("Run~n",[]).

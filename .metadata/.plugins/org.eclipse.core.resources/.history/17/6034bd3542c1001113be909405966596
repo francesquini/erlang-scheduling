@@ -1,0 +1,16 @@
+-module(mandel).
+
+-behaviour(wx_object).
+
+-export([run/0]).
+
+-include_lib("wx/include/wx.hrl").
+
+
+
+
+run() ->
+	arr = array:new(),
+	
+	
+	io:format("Run~n",[]).

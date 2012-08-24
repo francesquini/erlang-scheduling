@@ -1,0 +1,76 @@
+-module(lat_speed).
+
+-export([run_tests/0, run_tests/3]).
+
+%local export
+-export([sender_loop/4, receiver_loop/4, generate_payloads/1]).
+
+run_tests() -> %defaults
+	run_tests("/tmp/", 10, 10).
+
+run_tests(OutputPath, N, PayloadSize) ->
+	HeapSize = 1 bsl (PayloadSize + 2),
+	VHeapSize = 200 * HeapSize,
+	erlang:system_flag(min_bin_vheap_size, VHeapSize),	
+	erlang:system_flag(min_heap_size, HeapSize),
+	io:format("~p (Requested: ~p)~n~p (Requested: ~p)~n",
+		[erlang:system_info(min_bin_vheap_size), VHeapSize, erlang:system_info(min_heap_size), HeapSize]),
+	erlang:system_flag(scheduler_bind_type, no_spread),
+	Scheds = lists:seq(1, utils:scheduler_count()),
+	io:format("Bind type: ~p ~n", [erlang:system_info(scheduler_bind_type)]),
+	io:format("Bindings: ~p ~n", [erlang:system_info(scheduler_bindings)]),	
+	io:format("Running with schedulers: ~p~n", [Scheds]),
+	[run_tests(OutputPath, S, R, N, PayloadSize) || S <- Scheds, R <- Scheds].
+
+run_tests(OutputPath, SSched, RSched, N, PayloadSize) ->
+	[do_run_tests(OutputPath, SSched, RSched, N, Payload) || Payload <- generate_payloads(PayloadSize)],
+	ok.		  
+	
+do_run_tests(OutputPath, SSched, RSched, N, Payload) ->
+	Label = utils:to_string(SSched) ++ "-" ++ utils:to_string(RSched), 
+	Filename = OutputPath ++ "Latency-" ++ Label ++ "-" ++ utils:to_string((byte_size(list_to_binary(Payload)))),
+	file:delete(Filename),
+	{ok, File} = file:open(Filename, [read, write]),
+	Receiver = spawn_link(?MODULE, receiver_loop, [self(), File, Label, RSched]),
+	Sender = spawn_link(?MODULE, sender_loop, [Receiver, N, SSched, Payload]),
+	Receiver ! Sender,
+	receive ended -> ok end,
+	file:close(File).
+
+
+sender_loop (Receiver, Count, Scheduler, Payload) ->
+	utils:set_scheduler(Scheduler),
+	Scheduler = utils:current_scheduler(),
+	receive ok -> ok end,
+	sender_loop(Receiver, Count, Payload).
+sender_loop(Receiver, 0, _Payload) ->
+	Receiver ! stop;
+sender_loop(Receiver, Count, Payload) ->
+	Receiver ! Payload,
+	sender_loop(Receiver, Count -1, Payload).
+
+receiver_loop(Orig, File, Label, Scheduler) ->
+	utils:set_scheduler(Scheduler),
+	Scheduler = utils:current_scheduler(),
+	receive 
+		Sender when is_pid(Sender) ->
+			Sender ! ok,
+			receiver_loop(Orig, File, Label)
+	end.
+
+receiver_loop(Orig, File, Label) ->
+	receive
+		stop ->
+			Orig ! ended;
+		_Payload -> 
+			Now = utils:time_to_number(now()),
+			io:fwrite(File,"~p~n", [Now]),
+			receiver_loop(Orig, File, Label)
+	end.
+
+generate_payloads(N) ->
+	generate_payloads(N, [[42]]).
+generate_payloads(0, Acc) ->
+	Acc;
+generate_payloads(N, Acc = [H | _]) ->
+	generate_payloads(N - 1, [H ++ H | Acc]).

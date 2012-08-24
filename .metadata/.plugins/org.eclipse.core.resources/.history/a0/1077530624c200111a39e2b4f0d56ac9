@@ -1,0 +1,39 @@
+%% Author: emilio
+%% Created: 29/06/2012
+%% Description: TODO: Add description to stairs
+-module(stairs).
+
+%%
+%% Include files
+%%
+
+%%
+%% Exported Functions
+%%
+-export([run/0]).
+
+
+run () ->
+	Lines = file2lines("/home/emilio/Doutorado/Codigo/ErlangWorkspace/Profiler/Mandel/words"),
+	LinesLC = lists:map(fun string:to_lower/1, Lines),
+	LinesSorted = lists:sort(LinesLC),
+	LinesUnique = select_unique(LinesSorted),
+	
+
+file2lines(FileName) ->
+   {ok, Bin} = file:read_file(FileName),
+   string2lines(binary_to_list(Bin), []).
+
+string2lines("\n" ++ Str, Acc) -> [lists:reverse(Acc) | string2lines(Str,[])];
+string2lines([H|T], Acc)       -> string2lines(T, [H|Acc]);
+string2lines([], Acc)          -> Acc.
+
+select_unique (L) ->
+	select_unique (L, Acc).
+
+select_unique ([], Acc) ->
+	Acc;
+select_unique ([X|T], Acc = [X|_]) ->
+	select_unique (T, Acc);
+select_unique ([H,T], Acc) ->
+	select_unique (T, [H|Acc]).

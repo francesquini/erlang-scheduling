@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbench progressCount="18" version="2.0">
+<workbenchAdvisor/>
+<window height="1021" width="1638" x="239" y="29">
+<fastViewData fastViewLocation="1024"/>
+<perspectiveBar>
+<itemSize x="160"/>
+</perspectiveBar>
+<coolbarLayout>
+<coolItem id="group.file" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="132" y="30"/>
+<coolItem id="additions" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="120" y="30"/>
+<coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="76" y="30"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="48" y="30"/>
+<coolItem id="org.erlide.ui.toolbars.creation" itemType="typeToolBarContribution" x="40" y="30"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="40" y="30"/>
+<coolItem id="group.nav" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="184" y="30"/>
+<coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.erlide.ui.editors.erl.ErlangEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="group.help" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
+</coolbarLayout>
+<page aggregateWorkingSetId="Aggregate for window 1337168507804" focus="true" label="Workspace - Erlang">
+<editors>
+<editorArea activeWorkbook="DefaultEditorWorkbook">
+<info part="DefaultEditorWorkbook">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="1"/>
+<part id="3"/>
+<part id="0"/>
+<part id="2"/>
+<part id="4"/>
+<part id="5"/>
+</presentation>
+</folder>
+</info>
+</editorArea>
+<editor id="org.erlide.ui.editors.erl.ErlangEditor" name="mandel.erl" partName="mandel.erl" path="/home/emilio/Dropbox/Emilio/USP/Pos/Doutorado/Codigo/ErlangWorkspace/Profiler/Mandel/src/mandel.erl" title="mandel.erl" tooltip="Mandel/src/mandel.erl" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Mandel/src/mandel.erl"/>
+<editorState selectionHorizontalPixel="0" selectionLength="142" selectionOffset="200" selectionTopPixel="0"/>
+</editor>
+<editor id="org.erlide.ui.editors.erl.ErlangEditor" name="mandel_shared.erl" partName="mandel_shared.erl" path="/home/emilio/Dropbox/Emilio/USP/Pos/Doutorado/Codigo/ErlangWorkspace/Profiler/Mandel/src/mandel_shared.erl" title="mandel_shared.erl" tooltip="Mandel/src/mandel_shared.erl" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Mandel/src/mandel_shared.erl"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="175" selectionTopPixel="0"/>
+</editor>
+<editor id="org.erlide.ui.editors.erl.ErlangEditor" name="mandel_par.erl" partName="mandel_par.erl" path="/home/emilio/Dropbox/Emilio/USP/Pos/Doutorado/Codigo/ErlangWorkspace/Profiler/Mandel/src/mandel_par.erl" title="mandel_par.erl" tooltip="Mandel/src/mandel_par.erl" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Mandel/src/mandel_par.erl"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="84" selectionTopPixel="0"/>
+</editor>
+<editor id="org.erlide.ui.editors.erl.ErlangEditor" name="mandel.hrl" partName="mandel.hrl" path="/home/emilio/Dropbox/Emilio/USP/Pos/Doutorado/Codigo/ErlangWorkspace/Profiler/Mandel/include/mandel.hrl" title="mandel.hrl" tooltip="Mandel/include/mandel.hrl" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Mandel/include/mandel.hrl"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="167" selectionTopPixel="0"/>
+</editor>
+<editor id="org.erlide.ui.editors.erl.ErlangEditor" name="example.erl" partName="example.erl" path="/home/emilio/Dropbox/Emilio/USP/Pos/Doutorado/Codigo/ErlangWorkspace/Profiler/Mandel/src/example.erl" title="example.erl" tooltip="Mandel/src/example.erl" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Mandel/src/example.erl"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="259" selectionTopPixel="0"/>
+</editor>
+<editor activePart="true" focus="true" id="org.erlide.ui.editors.erl.ErlangEditor" name="lat_speed.erl" partName="lat_speed.erl" path="/home/emilio/Dropbox/Emilio/USP/Pos/Doutorado/Codigo/ErlangWorkspace/Profiler/src/lat_speed.erl" title="lat_speed.erl" tooltip="Profiler/src/lat_speed.erl" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Profiler/src/lat_speed.erl"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="270" selectionTopPixel="1393"/>
+</editor>
+</editors>
+<views>
+<view id="org.erlide.ui.views.navigator.view" partName="Erlang Navigator">
+<viewState CommonNavigator.LINKING_ENABLED="0" currentWorkingSetName="Aggregate for window 1337168507804" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0"/>
+</view>
+<view id="org.eclipse.search.ui.views.SearchView" partName="Search">
+<viewState isPinned="false">
+<view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
+<view IMemento.internal.id="org.erlide.ui.ErlangSearchResultPage" org.eclipse.search.lastActivation="1" org.eclipse.search.resultpage.layout="2" org.eclipse.search.resultpage.limit="1000" org.eclipse.search.resultpage.sorting="2"/>
+</viewState>
+</view>
+<view id="org.eclipse.debug.ui.DebugView" partName="Debug">
+<viewState/>
+</view>
+<view id="org.erlide.ui.callhierarchy" partName="Call Hierarchy">
+<viewState/>
+</view>
+<view id="org.eclipse.debug.ui.BreakpointView" partName="Breakpoints"/>
+<view id="org.eclipse.debug.ui.VariableView" partName="Variables">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.views.TaskList" partName="Tasks"/>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.navigator.ProjectExplorer" partName="Project Explorer">
+<viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0"/>
+</view>
+<view id="org.erlide.ui.debug.interpretedModulesView" partName="Interpreted Modules"/>
+<view id="org.erlide.ui.views.processlist.ProcessListView" partName="Process list view">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.views.ProblemView" partName="Problems">
+<viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<columnWidths org.eclipse.ui.ide.locationField="105" org.eclipse.ui.ide.markerType="908" org.eclipse.ui.ide.pathField="140" org.eclipse.ui.ide.resourceField="105" org.eclipse.ui.ide.severityAndDescriptionField="350"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
+</viewState>
+</view>
+<view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
+<viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="Aggregate for window 1337168507804">
+<customFilters userDefinedPatternsEnabled="false">&#x0A;<xmlDefinedFilters>&#x0A;<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.StaticsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.pde.ui.ExternalPluginLibrariesFilter1" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ClosedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonSharedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaElementFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ContainedLibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.CuAndClassFileFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyInnerPackageFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.PackageDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyPackageFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ImportDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.FieldsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.HideInnerClassFilesFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonPublicFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.EmptyLibraryContainerFilter" isEnabled="true"/>
+<child filterId="org.eclipse.pde.ui.BinaryProjectFilter1" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.SyntheticMembersFilter" isEnabled="true"/>
+</xmlDefinedFilters>
+</customFilters>
+</viewState>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
+</view>
+<view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
+<view id="org.erlide.ui.views.eval.LiveExpressionsView" partName="Live Expressions">
+<viewState>
+<LiveExpressions>&#x0A;<expression>erlang:now()</expression>
+</LiveExpressions>
+</viewState>
+</view>
+<view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
+</views>
+<perspectives activePart="org.eclipse.ui.console.ConsoleView" activePerspective="org.erlide.ui.perspectives.ErlangPerspective">
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="org.erlide.debug.ui.ErlangDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaElementCreationActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.junit.JUnitActionSet"/>
+<show_view_action id="org.eclipse.jdt.ui.PackageExplorer"/>
+<show_view_action id="org.eclipse.jdt.ui.TypeHierarchy"/>
+<show_view_action id="org.eclipse.jdt.ui.SourceView"/>
+<show_view_action id="org.eclipse.jdt.ui.JavadocView"/>
+<show_view_action id="org.eclipse.search.ui.views.SearchView"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="org.eclipse.ui.views.ResourceNavigator"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.ui.views.ProgressView"/>
+<show_view_action id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<show_view_action id="org.eclipse.ui.texteditor.TemplatesView"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<show_view_action id="org.eclipse.ant.ui.views.AntView"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.JavaProjectWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewPackageCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewClassCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewInterfaceCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewEnumCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewAnnotationCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewSourceFolderCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewSnippetFileCreationWizard"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewJavaWorkingSetWizard"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<new_wizard_action id="org.eclipse.ui.editors.wizards.UntitledTextFileWizard"/>
+<new_wizard_action id="org.eclipse.jdt.junit.wizards.NewTestCaseCreationWizard"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
+<perspective_action id="org.eclipse.debug.ui.DebugPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.jdt.ui.PackageExplorer"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<view id="org.eclipse.jdt.ui.JavadocView"/>
+<view id="org.eclipse.jdt.ui.SourceView"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<fastViewBars/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="left">&#x0A;<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
+<page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<page content="org.eclipse.ui.navigator.ProjectExplorer" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.junit.ResultView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@7b22555f" ratio="0.7495049" ratioLeft="757" ratioRight="253" relationship="2" relative="left">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.24950495" ratioLeft="252" ratioRight="758" relationship="2" relative="left"/>
+<info folder="true" part="bottom" ratio="0.74882996" ratioLeft="480" ratioRight="161" relationship="4" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
+<page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
+<page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="right" ratio="0.74934036" ratioLeft="568" ratioRight="190" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<page content="org.eclipse.ui.texteditor.TemplatesView" label="LabelNotFound"/>
+<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="org.erlide.ui.perspectives.ErlangPerspective" id="org.erlide.ui.perspectives.ErlangPerspective" label="Erlang"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="org.erlide.debug.ui.ErlangDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.debugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.erlide.ui.actions.openActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
+<show_view_action id="org.eclipse.search.ui.views.SearchView"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.erlide.ui.views.eval.LiveExpressionsView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<new_wizard_action id="org.erlide.ui.wizards.newproject"/>
+<new_wizard_action id="org.erlide.ui.wizards.ErlangSourceFile"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<new_wizard_action id="org.eclipse.ui.editors.wizards.UntitledTextFileWizard"/>
+<perspective_action id="org.eclipse.ui.resourcePerspective"/>
+<perspective_action id="org.erlide.ui.perspectives.ErlangPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.erlide.ui.views.navigator.view"/>
+<view id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="org.erlide.ui.views.processlist.ProcessListView"/>
+<view id="org.erlide.ui.views.eval.LiveExpressionsView"/>
+<view id="org.erlide.ui.callhierarchy"/>
+<view id="org.eclipse.search.ui.views.SearchView"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="left">
+<folder activePageID="org.erlide.ui.views.navigator.view" appearance="2" expanded="2">
+<page content="org.erlide.ui.views.navigator.view" label="Erlang Navigator"/>
+<page content="org.eclipse.ui.navigator.ProjectExplorer" label="Project Explorer"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.7495049" ratioLeft="757" ratioRight="253" relationship="2" relative="left">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.18372093" ratioLeft="237" ratioRight="1053" relationship="2" relative="left"/>
+<info folder="true" part="bottom" ratio="0.75602096" ratioLeft="722" ratioRight="233" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="org.erlide.ui.views.processlist.ProcessListView" label="Process list view"/>
+<page content="org.erlide.ui.views.eval.LiveExpressionsView" label="Live Expressions"/>
+<page content="org.erlide.ui.callhierarchy" label="Call Hierarchy"/>
+<page content="org.eclipse.search.ui.views.SearchView" label="Search"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@468010fe" ratio="0.69925743" ratioLeft="565" ratioRight="243" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="org.eclipse.debug.internal.ui.DebugPerspectiveFactory" id="org.eclipse.debug.ui.DebugPerspective" label="Debug"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="org.erlide.debug.ui.ErlangDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.debugActionSet"/>
+<show_view_action id="org.eclipse.debug.ui.DebugView"/>
+<show_view_action id="org.eclipse.debug.ui.VariableView"/>
+<show_view_action id="org.eclipse.debug.ui.BreakpointView"/>
+<show_view_action id="org.eclipse.debug.ui.ExpressionView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.ant.ui.views.AntView"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<show_view_action id="org.eclipse.jdt.debug.ui.DisplayView"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaPerspective"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="org.eclipse.ui.views.TaskList"/>
+<view id="org.eclipse.debug.ui.DebugView"/>
+<view id="org.erlide.ui.debug.interpretedModulesView"/>
+<view id="org.eclipse.debug.ui.VariableView"/>
+<view id="org.eclipse.debug.ui.BreakpointView"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<fastViewBars/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
+<page content="org.erlide.ui.debug.interpretedModulesView" label="Interpreted Modules"/>
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.ui.PackageExplorer" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.7497303" ratioLeft="1390" ratioRight="464" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.7494781" ratioLeft="718" ratioRight="240" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.PropertySheet" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.debug.ui.DisplayView" label="LabelNotFound"/>
+<page content="org.eclipse.search.SearchResultView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.44986072" ratioLeft="323" ratioRight="395" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.7497303" ratioLeft="1390" ratioRight="464" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="927" ratioRight="927" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
+<page content="org.eclipse.debug.ui.BreakpointView" label="Breakpoints"/>
+<page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
+<page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+</perspectives>
+<workingSets/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" path="/Mandel/src/mandel_par.erl"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" path="/Mandel/include/mandel.hrl"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" path="/Mandel/src/mandel.erl"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" path="/Mandel/src/mandel_shared.erl"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" path="/Mandel/example.erl"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" path="/Mandel/src/example.erl"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" path="/Mandel/src/mandel_shared.erl"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" path="/Mandel/src/mandel.erl"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" path="/Mandel/include/mandel.hrl"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" path="/Profiler/src/lat_speed.erl"/>
+</editors>
+<item historyLabel="mandel.hrl" index="1">
+<position info="not_deleted" x="167" y="0"/>
+</item>
+<item historyLabel="mandel.erl" index="2">
+<position info="not_deleted" x="256" y="0"/>
+</item>
+<item historyLabel="mandel_shared.erl" index="3">
+<position info="not_deleted" x="516" y="0"/>
+</item>
+<item historyLabel="mandel.hrl" index="1">
+<position info="not_deleted" x="167" y="0"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="488" y="0"/>
+</item>
+<item historyLabel="mandel.erl" index="2">
+<position info="not_deleted" x="256" y="0"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="488" y="0"/>
+</item>
+<item historyLabel="mandel.erl" index="2">
+<position info="not_deleted" x="256" y="0"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="488" y="0"/>
+</item>
+<item historyLabel="mandel.erl" index="2">
+<position info="not_deleted" x="256" y="0"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="488" y="0"/>
+</item>
+<item historyLabel="mandel.erl" index="2">
+<position info="not_deleted" x="256" y="0"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="390" y="0"/>
+</item>
+<item historyLabel="mandel_shared.erl" index="3">
+<position info="not_deleted" x="516" y="0"/>
+</item>
+<item historyLabel="mandel.hrl" index="1">
+<position info="not_deleted" x="167" y="0"/>
+</item>
+<item historyLabel="mandel.erl" index="2">
+<position info="not_deleted" x="256" y="0"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="799" y="0"/>
+</item>
+<item historyLabel="mandel.erl" index="2">
+<position info="not_deleted" x="256" y="0"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="799" y="0"/>
+</item>
+<item historyLabel="mandel.erl" index="2">
+<position info="not_deleted" x="256" y="0"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="799" y="0"/>
+</item>
+<item historyLabel="mandel_shared.erl" index="3">
+<position info="not_deleted" x="516" y="0"/>
+</item>
+<item historyLabel="mandel.hrl" index="1">
+<position info="not_deleted" x="167" y="0"/>
+</item>
+<item historyLabel="mandel.erl" index="2">
+<position info="not_deleted" x="256" y="0"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="799" y="0"/>
+</item>
+<item historyLabel="mandel.erl" index="2">
+<position info="not_deleted" x="256" y="0"/>
+</item>
+<item historyLabel="mandel_shared.erl" index="3">
+<position info="not_deleted" x="31" y="782"/>
+</item>
+<item historyLabel="mandel.hrl" index="1">
+<position info="not_deleted" x="167" y="0"/>
+</item>
+<item historyLabel="mandel.erl" index="2">
+<position info="not_deleted" x="256" y="0"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="799" y="0"/>
+</item>
+<item historyLabel="example.erl" index="4">
+<position info="not_deleted" x="98" y="0"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="799" y="0"/>
+</item>
+<item historyLabel="example.erl" index="4">
+<position info="not_deleted" x="98" y="0"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="799" y="0"/>
+</item>
+<item historyLabel="example.erl" index="5">
+<position info="not_deleted" x="76" y="34"/>
+</item>
+<item historyLabel="example.erl" index="5">
+<position info="not_deleted" x="259" y="0"/>
+</item>
+<item historyLabel="example.erl" index="5">
+<position info="not_deleted" x="167" y="0"/>
+</item>
+<item historyLabel="mandel_shared.erl" index="6">
+<position info="not_deleted" x="31" y="783"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="84" y="0"/>
+</item>
+<item historyLabel="mandel_shared.erl" index="6">
+<position info="not_deleted" x="31" y="783"/>
+</item>
+<item historyLabel="mandel.erl" index="7">
+<position info="not_deleted" x="256" y="0"/>
+</item>
+<item historyLabel="mandel.hrl" index="8">
+<position info="not_deleted" x="167" y="0"/>
+</item>
+<item historyLabel="mandel_shared.erl" index="6">
+<position info="not_deleted" x="1320" y="818"/>
+</item>
+<item historyLabel="mandel.hrl" index="8">
+<position info="not_deleted" x="167" y="0"/>
+</item>
+<item historyLabel="mandel.erl" index="7">
+<position info="not_deleted" x="200" y="142"/>
+</item>
+<item historyLabel="mandel_shared.erl" index="6">
+<position info="not_deleted" x="177" y="0"/>
+</item>
+<item historyLabel="mandel.hrl" index="8">
+<position info="not_deleted" x="167" y="0"/>
+</item>
+<item historyLabel="mandel_shared.erl" index="6">
+<position info="not_deleted" x="175" y="0"/>
+</item>
+<item historyLabel="mandel_par.erl" index="0">
+<position info="not_deleted" x="84" y="0"/>
+</item>
+<item active="true" historyLabel="lat_speed.erl" index="9">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+</navigationHistory>
+<input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
+</page>
+<workbenchWindowAdvisor/>
+<actionBarAdvisor/>
+<trimLayout>
+<trimArea IMemento.internal.id="128">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
+</trimArea>
+<trimArea IMemento.internal.id="1024">
+<trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
+<trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+</trimArea>
+</trimLayout>
+</window>
+<mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="lat_speed.erl" tooltip="Profiler/src/lat_speed.erl">
+<persistable path="/Profiler/src/lat_speed.erl"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="example.erl" tooltip="Mandel/src/example.erl">
+<persistable path="/Mandel/src/example.erl"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="example.erl" tooltip="Mandel/example.erl">
+<persistable path="/Mandel/example.erl"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="proc_prof.erl" tooltip="Profiler/src/proc_prof.erl">
+<persistable path="/Profiler/src/proc_prof.erl"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="mandel.hrl" tooltip="Mandel/include/mandel.hrl">
+<persistable path="/Mandel/include/mandel.hrl"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="mandel_shared.erl" tooltip="Mandel/src/mandel_shared.erl">
+<persistable path="/Mandel/src/mandel_shared.erl"/>
+</file>
+<file factoryID="org.erlide.ui.ErlangExternalEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="array.erl" tooltip="/usr/local/lib/erlang/lib/stdlib-1.18.1/src/array.erl">
+<persistable external_module_path="Mandel&lt;&gt;erlang&lt;&gt;stdlib&lt;&gt;src&lt;&gt;array.erl" uri="file:/usr/local/lib/erlang/lib/stdlib-1.18.1/src/array.erl"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="utils.erl" tooltip="Profiler/src/utils.erl">
+<persistable path="/Profiler/src/utils.erl"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="mandel.erl" tooltip="Mandel/src/mandel.erl">
+<persistable path="/Mandel/src/mandel.erl"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="mandel_par1.erl" tooltip="Mandel/src/mandel_par1.erl">
+<persistable path="/Mandel/src/mandel_par1.erl"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="trace_analysis.erl" tooltip="Profiler/src/trace_analysis.erl">
+<persistable path="/Profiler/src/trace_analysis.erl"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="pg.erl" tooltip="Profiler/src/pg.erl">
+<persistable path="/Profiler/src/pg.erl"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="gnuplot.erl" tooltip="Profiler/src/gnuplot.erl">
+<persistable path="/Profiler/src/gnuplot.erl"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.erlide.ui.editors.erl.ErlangEditor" name="latency.erl" tooltip="Profiler/src/latency.erl">
+<persistable path="/Profiler/src/latency.erl"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="at" tooltip="Profiler/src/at">
+<persistable path="/Profiler/src/at"/>
+</file>
+</mruList>
+</workbench>

@@ -1,0 +1,4 @@
+-module(mandel).
+
+-export([run/0]).
+

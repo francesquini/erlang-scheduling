@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;Mandel/src/mandel_par_pixel.erl&apos;" deleteContents="false" description="Delete resource &apos;Mandel/src/mandel_par_pixel.erl&apos;" element1="/Mandel/src/mandel_par_pixel.erl" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1341338200419"/>
+</session>

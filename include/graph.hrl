@@ -1,0 +1,21 @@
+-record(
+   edge,
+   {
+		source=undefined,
+		dest=undefined,
+		weight=undefined,
+		options=[]
+	}
+).
+
+-record(
+   graph, 
+   	{
+		id=undefined, 
+		type=undefined,
+		edge_type=undefined, 
+		options=[], 
+		vertices=[], 
+		edges=[]
+  	}
+).

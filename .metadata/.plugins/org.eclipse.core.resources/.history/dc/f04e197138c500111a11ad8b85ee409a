@@ -1,0 +1,32 @@
+-module(mandel_par_pixel).
+
+-include("mandel.hrl").
+
+-export([run/0, calculate_image/1]).
+
+-import(mandel_shared, [calculate_pixel/3]).
+
+
+run() ->
+	mandel_shared:run("/tmp/mandel_par_pixel.ppm", fun calculate_image/1).
+
+
+calculate_image (Mandel) ->
+	Size = Mandel#mandel.size,
+	Self = self(),
+	io:format("spawning~n"),
+	[spawn(fun () -> calculate_and_send (Self, Mandel, X, Y) end) || X <- lists:seq(1, Size), Y <- lists:seq(1, Size)],
+	io:format("receiving~n"),
+	Msgs = [receive Msg -> Msg end || _ <- lists:seq(1, Size * Size)],
+	io:format("Sorting~n"),
+	MsgsSorted = lists:sort(
+	  	fun ({X1, Y1, _},  {X2, Y2, _}) ->
+				 X1 < X2 orelse Y1 < Y2 end, Msgs),
+	io:format("Matching~n"),
+	[Color || {_, _, Color} <- MsgsSorted].
+	
+
+calculate_and_send(Parent, Mandel, X, Y) ->
+	Color = calculate_pixel (Mandel, X, Y),
+	Parent ! {X, Y, Color}.
+

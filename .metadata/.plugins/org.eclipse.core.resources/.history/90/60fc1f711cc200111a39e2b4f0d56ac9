@@ -1,0 +1,24 @@
+%% Author: emilio
+%% Created: 29/06/2012
+%% Description: TODO: Add description to stairs
+-module(stairs).
+
+%%
+%% Include files
+%%
+
+%%
+%% Exported Functions
+%%
+-export([]).
+
+%%
+%% API Functions
+%%
+
+
+
+%%
+%% Local Functions
+%%
+

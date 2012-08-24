@@ -1,0 +1,75 @@
+-module(mandel).
+
+-export([run/0]).
+
+-define(Mult(X0, X1, Y0, Y1), {X0 * Y0 - X1 * Y1,  X0 * Y1 + Y0 * X1}).
+-define(Sum(X0, X1, Y0, Y1), {X0 + Y0,  X1 + Y1}).
+-define(Norma(Z0, Z1), Z0 * Z0 + Z1 * Z1). 
+
+-record(
+   mandel,
+   {
+		size,
+		delta,
+		max_complex,
+		max_iter,
+		max_colors,
+		pallete,
+		bailout2	
+	}
+).
+
+run() ->
+	Mandel = new_mandel(10),
+	Image = calculate_image(Mandel),	
+	io:format("~p~n",[Image]).
+
+new_mandel (Size) ->	
+	Max_complex = 2,
+	Delta = Max_complex * 2 / Size,
+	Max_iter = 100,
+	Max_colors = 2000,
+	Pal = calculatePallete(Max_colors),
+	Bailout2 = 4,	
+	#mandel{
+		size = Size,
+		delta = Delta,
+		max_complex = Max_complex,
+		max_iter = Max_iter,
+		max_colors = Max_colors,
+		pallete = Pal,
+		bailout2 = Bailout2}.
+
+calculatePallete(Max_colors) ->
+	array:from_list([
+		{
+		  (255 - Pos * 2) rem 256, %R
+		  (Pos * 11) rem 256,      %G
+	      (Pos * 7 ) rem 256       %B
+	   	} || Pos <- lists:seq(0, Max_colors)]).
+
+calculate_image (Mandel) ->
+	[ calculate_pixel(Mandel, X, Y) || X <- lists:seq(1, Mandel#mandel.size), Y <- lists:seq(1, Mandel#mandel.size)].
+
+calculate_pixel(Mandel, X, Y) ->
+	Size2 = Mandel#mandel.size / 2,
+	Ix = (X - Size2) * Mandel#mandel.delta / 8 - 0.5,
+	Iy = (Y - Size2) * Mandel#mandel.delta / 8 + 0.5,
+	Iters = calculate_complex(Mandel, Ix, Iy),
+	array:get(Iters rem Mandel#mandel.max_colors, Mandel#mandel.pallete).
+
+calculate_complex (Mandel, Ix, Iy) ->
+	C = {Ix, Iy},
+	calculate_complex_loop (C, Mandel).
+	
+calculate_complex_loop (C, Mandel) ->
+	calculate_complex_loop (C, {0, 0}, 0, 0, Mandel#mandel.max_iter, Mandel#mandel.bailout2).
+																					 
+calculate_complex_loop (_C, _Z, Iter, Norma, MaxIter, Bailout) when Iter > MaxIter orelse Norma > Bailout ->
+	Iter;
+calculate_complex_loop (C = {C0, C1}, {Z0, Z1}, Iter, _Norma, MaxIter, Bailout) ->
+	{M1, M2} = ?Mult(Z0, Z1, Z0, Z1),
+	Z2 = ?Sum (M1, M2, C0, C1),
+	Norma2 = ?Norma(Z0, Z1),
+	calculate_complex_loop (C, Z2, Iter + 1, Norma2, MaxIter, Bailout).
+

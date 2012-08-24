@@ -1,0 +1,9 @@
+-record(
+   plc_str,
+   {
+		name=undefined,
+		module=undefined,
+		function=undefined,
+		state=undefined
+	}
+).

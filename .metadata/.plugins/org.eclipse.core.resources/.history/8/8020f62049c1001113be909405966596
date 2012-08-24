@@ -1,0 +1,32 @@
+-module(mandel).
+
+-export([run/0]).
+
+run() ->
+	Size = 10,
+	Image = calculate_image(Size),	
+	io:format("~p~n",[Image]).
+
+calculate_image (Size) ->
+	[ calculate_pixel(Size, X, Y) || X <- lists:seq(1, Size), Y <- lists:seq(1, Size)].
+
+
+calculate_pixel(X, Y) ->
+	{X, Y}.
+
+
+function CalculaMandelPixel(x,y:integer):integer;
+          var
+             maxComplex,
+             ix,iy,dx,dy,tmp: real  ;
+          begin
+               maxComplex:=2;
+               dx:=maxComplex*2/tx;
+               dy:=maxComplex*2/ty;
+               if (dx<dy ) then dx:=dy;
+               ix:=(x-tx/2)*dx;
+               iy:=(y-ty/2)*dy;
+               ix:=ix/8- 0.5;
+               iy:=iy/8+ 0.5;
+               CalculaMandelPixel:=calculaMandelComplexo(ix,iy);
+          end;

@@ -1,0 +1,26 @@
+%% Author: emilio
+%% Created: 29/06/2012
+%% Description: TODO: Add description to stairs
+-module(stairs).
+
+%%
+%% Include files
+%%
+
+%%
+%% Exported Functions
+%%
+-export([run/0]).
+
+
+run () ->
+	file2lines("/home/emilio/Doutorado/Codigo/ErlangWorkspace/Profiler/Mandel/words").
+
+
+file2lines(FileName) ->
+   {ok, Bin} = file:read_file(FileName),
+   string2lines(binary_to_list(Bin), []).
+
+string2lines("\n" ++ Str, Acc) -> [lists:reverse(Acc) | string2lines(Str,[])];
+string2lines([H|T], Acc)       -> string2lines(T, [H|Acc]);
+string2lines([], Acc)          -> Acc.

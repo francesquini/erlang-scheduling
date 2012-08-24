@@ -1,0 +1,16 @@
+-module(mandel).
+
+-export([run/0]).
+
+run() ->
+	Size = 10,
+	Image = calculate_image(Size),	
+	io:format("~p~n",[Image]).
+
+calculate_image (Size) ->
+	[ calculate_pixel(X, Y) || X <- lists:seq(1, Size), Y <- lists:seq(1, Size)].
+
+
+calculate_pixel(X, Y) ->
+	{X, Y}.
+

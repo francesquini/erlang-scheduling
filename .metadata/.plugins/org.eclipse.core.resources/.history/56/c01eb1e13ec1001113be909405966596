@@ -1,0 +1,6 @@
+-module(mandel).
+
+-export([run/0]).
+
+run() ->
+	io:format("Run~n",[]).

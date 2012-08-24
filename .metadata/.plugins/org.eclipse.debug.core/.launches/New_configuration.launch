@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.erlide.core.launch.erlangProcess">
+<stringAttribute key="org.erlide.core.arguments" value=""/>
+<stringAttribute key="org.erlide.core.cookie" value="bolacha"/>
+<intAttribute key="org.erlide.core.debugFlags" value="4"/>
+<stringAttribute key="org.erlide.core.extra_args" value=""/>
+<stringAttribute key="org.erlide.core.function" value=""/>
+<booleanAttribute key="org.erlide.core.loadAllNodes" value="true"/>
+<booleanAttribute key="org.erlide.core.longName" value="true"/>
+<stringAttribute key="org.erlide.core.module" value=""/>
+<stringAttribute key="org.erlide.core.nodeName" value="profiler"/>
+<stringAttribute key="org.erlide.core.projects" value="Mandel;Profiler"/>
+<stringAttribute key="org.erlide.core.runtime" value="erlang"/>
+<booleanAttribute key="org.erlide.core.startMe" value="true"/>
+<stringAttribute key="org.erlide.core.working_dir" value="."/>
+</launchConfiguration>

@@ -6,7 +6,7 @@
 -export([min_max_average/1]).
 
 %% Type Conversion
--export([to_string/1, to_dbstring/1]).
+-export([to_string/1, to_dbstring/1, to_int/1]).
 
 %% Math Functions
 -export([floor/1, ceiling/1, is_prime/1]).
@@ -63,6 +63,11 @@ to_string (X) ->
 
 to_dbstring (X) ->
 	lists:flatten(io_lib:format("~p", [to_string(X)])).
+
+
+to_int(X) when is_list(X) ->
+	{Res, _} = string:to_integer(X),
+	Res.
 
 
 %%%%%%%%%%%%%%%%%%%%

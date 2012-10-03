@@ -42,10 +42,17 @@
 
 % Spawning
 spawn(Fun) ->
-	spawn_nopin(Fun, []).
+	spawn_pinned (Fun, []).
 
 spawn_link(Fun) ->
-	spawn_nopin(Fun, [link]).
+	spawn_pinned (Fun, [link]).
+
+%spawn(Fun) ->
+%	spawn_nopin(Fun, []).
+%
+%spawn_link(Fun) ->
+%	spawn_nopin(Fun, [link]).
+%
 
 spawn_pin(Fun) ->
 	spawn_pinned (Fun, []).
@@ -198,15 +205,20 @@ scheduler_loop (Strategy) ->
 			scheduler_loop (Strategy)
 	end.
 
-spawn_nopin (Fun, Opts) ->
-  Sched = get_next_scheduler(),
-  spawn_opt(Fun, [{scheduler, Sched} | Opts]).
+%% spawn_nopin (Fun, Opts) ->
+%% 	Sched = get_next_scheduler(),
+%% 	spawn_opt(
+%% 	  fun () ->
+%% 		Cur = current_scheduler(),
+%% 		case Sched == 0 orelse Cur == Sched of
+%% 			true -> ok;
+%% 			false -> io:format("~p ~p~n", [Cur, Sched]), erlang:error("Invalid scheduler")
+%% 		end,
+%% 	  	unset_scheduler (),
+%% 		apply(Fun, [])
+%% 	  end,
+%% 	  [{scheduler, Sched} | Opts]).
 
 spawn_pinned (Fun, Opts) ->
 	Sched = get_next_scheduler(),
-	spawn_opt(
-	  fun () ->  %For the time being, to avoid migrations
-	  	set_scheduler (Sched),
-		apply(Fun, [])
-	  end,
-	  [{scheduler, Sched} | Opts]).
+	spawn_opt(Fun, [{scheduler, Sched} | Opts]).

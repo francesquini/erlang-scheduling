@@ -38,7 +38,7 @@ pinger([Pi|Pis], Pongers, ReportTo) ->
 spawn_procs(N) when N =< 0 -> 
     []; 
 spawn_procs(N) -> 
-    [scheduling:spawn_link(fun () -> pinger([],[],true) end) | spawn_procs(N-1)]. 
+    [spawn_link(fun () -> pinger([],[],true) end) | spawn_procs(N-1)]. 
 
 send_procs([], Msg) -> 
     Msg; 
@@ -61,5 +61,5 @@ bang(N) when is_integer(N) ->
     send_procs(Procs, {procs, Procs, self()}), 
     receive_msgs(RMsgs), 
     Stop = now(), 
-    lists:foreach(fun (P) -> exit(P, normal) end, Procs), 
+    lists:foreach(fun (P) -> exit(P, kill) end, Procs), 
     timer:now_diff(Stop, Start). 

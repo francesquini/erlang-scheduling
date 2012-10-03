@@ -18,7 +18,7 @@
 
 mr (Map, Red, Id, L) ->
 	Parent = self(),
-	scheduling:spawn_link(fun () -> mr_do(Parent, Map, Red, Id, L) end),
+	spawn_link(fun () -> mr_do(Parent, Map, Red, Id, L) end),
 	receive Res -> Res end.
 
 mr_ex (N) ->
@@ -48,8 +48,8 @@ mr_do (Parent, Map, _Red, _Id, [E]) ->
 mr_do (Parent, Map, Red, Id, L) ->
 	{L1, L2} = split (L),
 	NParent = self(),
-	scheduling:spawn_link(fun () -> mr_do(NParent, Map, Red, Id, L1) end),
-	scheduling:spawn_link(fun () -> mr_do(NParent, Map, Red, Id, L2) end),
+	spawn_link(fun () -> mr_do(NParent, Map, Red, Id, L1) end),
+	spawn_link(fun () -> mr_do(NParent, Map, Red, Id, L2) end),
 	Acc = receive A ->		
 		receive B ->
 			apply (Red, [A, B])

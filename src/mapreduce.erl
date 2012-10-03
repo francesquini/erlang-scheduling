@@ -16,7 +16,7 @@
 
 mapreduce(F1, F2, Acc0, L) ->
     S = self(),
-    Pid = scheduling:spawn_link(fun() -> reduce(S, F1, F2, Acc0, L) end),
+    Pid = spawn_link(fun() -> reduce(S, F1, F2, Acc0, L) end),
     receive
 	{Pid, Result} ->
 	    Result
@@ -28,7 +28,7 @@ reduce(Parent, F1, F2, Acc0, L) ->
     %% Create the Map processes
     %%   One for each element X in L
     foreach(fun(X) -> 
-		    scheduling:spawn_link(fun() -> do_job(ReducePid, F1, X) end)
+		    spawn_link(fun() -> do_job(ReducePid, F1, X) end)
 	    end, L),
     N = length(L),
     %% make a dictionary to store the Keys

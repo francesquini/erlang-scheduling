@@ -12,6 +12,7 @@
 %% API Functions
 %%
 
+
 bench() ->
 	bench(small).
 
@@ -20,32 +21,17 @@ bench(Size) ->
 	Initial_Placement_Strategies = [0, 1, 2], %Default, Random, Circular
 	Migration_Strategies = [0, 1], %Default, Disabled
 	Work_Stealing_Strategies = [0, 1], %Default, Disabled
-	io:format("prefix\tmap_reduce\tmr\tbig_bang~n", []),
-	[configure_do(IPS, MS, WSS, Size) || IPS <- Initial_Placement_Strategies,
+
+	[bench(Size, IPS, MS, WSS) || IPS <- Initial_Placement_Strategies,
 										   MS <-  Migration_Strategies,
 										   WSS <- Work_Stealing_Strategies],
 	ok.
-%% 		||
-%% 	
-%% 	Strats = [
-%% 		{"Default", fun scheduling:set_placement_default/0, []},
-%% 		{"Random", fun scheduling:set_placement_random/0, []},
-%% 		{"Circular", fun scheduling:set_placement_circular/0, []},
-%% 		{"FS-1", fun scheduling:set_placement_fixed_set/1, [[1]]},
-%% 		{"FS-1,2", fun scheduling:set_placement_fixed_set/1, [[1,2]]},
-%% 		{"FS-1,3", fun scheduling:set_placement_fixed_set/1, [[1,3]]},
-%% 		{"FS-1,7", fun scheduling:set_placement_fixed_set/1, [[1,7]]},
-%%  		{"FS-1PSckt", fun scheduling:set_placement_fixed_set/1, [[1,7,13,19]]},
-%%  		{"FS-Odd", fun scheduling:set_placement_fixed_set/1, [[1,3,5,7,9,11,13,15,17,19,21,23]]}
-%% 	],
-%% 	io:format("prefix\tmap_reduce\tmr\tbig_bang~n", []),
-%% 	lists:foreach (
-%% 		fun ({Pre, Str, Par}) ->
-%% 			apply(Str, Par),
-%% 			do(Pre, small)
-%% 		end,
-%% 		Strats
-%% 	).
+
+bench(Size, IP, MS, WS) ->
+	scheduling:bind_no_spread(),
+	io:format("prefix\tmap_reduce\tmr\tbig_bang~n", []),
+	configure_do(IP, MS, WS, Size),
+	ok.
 
 configure_do (IPS, MS, WS, Size) ->
 	erlang:system_flag(scheduler_ip_strategy, IPS),

@@ -13,11 +13,10 @@
 %%
 
 run ([Size, IP, MS, WS]) ->
-	NSize = list_to_atom(Size),
-	NIP = utils:to_int(IP),
-	NMS = utils:to_int(MS),
-	NWS = utils:to_int(WS), 
-	bench(NSize, NIP, NMS, NWS).
+	NIP = utils:to_int(atom_to_list(IP)),
+	NMS = utils:to_int(atom_to_list(MS)),
+	NWS = utils:to_int(atom_to_list(WS)), 
+	bench(Size, NIP, NMS, NWS).
 
 bench() ->
 	bench(small).

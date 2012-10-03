@@ -1,0 +1,40 @@
+global start;
+
+function now() {
+	return gettimeofday_ns() - start;
+}
+
+
+probe begin {
+	start = gettimeofday_ns();
+}
+
+
+//Scheduler Active
+probe process("/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/x86_64-unknown-linux-gnu/beam.smp").mark("scheduler__active") {
+
+	printf("A\t%d\t%d\n", $arg1, now());
+}
+
+//Scheduler Inactive
+probe process("/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/x86_64-unknown-linux-gnu/beam.smp").mark("scheduler__inactive") {
+	printf("I\t%d\t%d\n", $arg1, now());
+}
+
+//Process migration
+probe process("/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/x86_64-unknown-linux-gnu/beam.smp").mark("process__migration") {
+        proc = user_string ($arg1);
+        printf("M\t%s\t%d\t%d\t%d\n", proc, $arg2, $arg3, now());
+}
+
+//Check-balance
+probe process("/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/x86_64-unknown-linux-gnu/beam.smp").mark("scheduler__check_balance") {
+        printf("CB\t%d\t%d\n", $arg1, now());
+}
+
+//Work-Stealing
+probe process("/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/x86_64-unknown-linux-gnu/beam.smp").mark("scheduler__work_stealing") {
+        printf("WS\t%d\t%d\n", $arg1, now());
+}
+
+

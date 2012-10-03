@@ -18,8 +18,10 @@
 
 mr (Map, Red, Id, L) ->
 	Parent = self(),
-	spawn_link(fun () -> mr_do(Parent, Map, Red, Id, L) end),
-	receive Res -> Res end.
+	Ref = make_ref(),
+	spawn_link(fun () -> mr_do(Parent, Ref,  Map, Red, Id, L) end),
+	receive {Ref, Res} -> Res end.
+
 
 mr_ex (N) ->
 	L = [random:uniform() || _ <- lists:seq(1, N)],
@@ -41,19 +43,20 @@ split ([E], L1, L2) ->
 split ([E1, E2|T], L1, L2) ->
 	split (T, [E1|L1], [E2|L2]).
 
-mr_do (Parent, _Map, _Red, Id, []) ->
-	Parent ! Id;
-mr_do (Parent, Map, _Red, _Id, [E]) ->
-	Parent ! apply (Map, [E]);
-mr_do (Parent, Map, Red, Id, L) ->
+mr_do (Parent, Ref, _Map, _Red, Id, []) ->
+	Parent ! {Ref, Id};
+mr_do (Parent, Ref, Map, _Red, _Id, [E]) ->
+	Parent ! {Ref, apply (Map, [E])};
+mr_do (Parent, Ref, Map, Red, Id, L) ->
 	{L1, L2} = split (L),
 	NParent = self(),
-	spawn_link(fun () -> mr_do(NParent, Map, Red, Id, L1) end),
-	spawn_link(fun () -> mr_do(NParent, Map, Red, Id, L2) end),
-	Acc = receive A ->		
-		receive B ->
+	Ref1 = make_ref(),
+	spawn_link(fun () -> mr_do(NParent, Ref1, Map, Red, Id, L1) end),
+	spawn_link(fun () -> mr_do(NParent, Ref1, Map, Red, Id, L2) end),
+	Acc = receive {Ref1, A} ->		
+		receive {Ref1, B} ->
 			apply (Red, [A, B])
 		end
 	end,	
-	Parent ! Acc.	
+	Parent ! {Ref, Acc}.	
 	

@@ -39,8 +39,8 @@ processInputFile (File, Acc, MaxScheduler) ->
 			Event = string:tokens(Line, "\t "),
 			NMaxScheduler = max (MaxScheduler, 
 				case Event of
-					[_, S, _] -> S;
-					[_, _, SFrom, Sto, _] -> max (SFrom, Sto)
+					[_, S, _] -> utils:to_int(S);
+					[_, _, SFrom, Sto, _] -> max (utils:to_int(SFrom), utils:to_int(Sto))
 				end),						
 			processInputFile(File, [Event | Acc], NMaxScheduler);
 		 eof -> 
@@ -127,7 +127,7 @@ writeHeader (File, MaxScheduler) ->
 	],
 	
 	[io:fwrite(File, "~s~n", [Line]) || Line <- H1],
-	[io:fwrite(File, "4 0.000000 S~p S VM 'Scheduler ~p'~n", [Sched, Sched]) || Sched <- lists:seq(1, list_to_integer(MaxScheduler))],
+	[io:fwrite(File, "4 0.000000 S~p S VM 'Scheduler ~p'~n", [Sched, Sched]) || Sched <- lists:seq(1, MaxScheduler)],
 	ok. 
 
 writeEvents(File, Events) ->

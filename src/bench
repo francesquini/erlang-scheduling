@@ -1,4 +1,4 @@
-#!/usr/local/bin/escript
+#!/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/x86_64-unknown-linux-gnu/escript
 
 main ([Size, IP, MS, WS]) ->
 	NSize = list_to_atom(Size),

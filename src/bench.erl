@@ -26,7 +26,6 @@ bench(Size) ->
 	Initial_Placement_Strategies = [0, 1, 2], %Default, Random, Circular
 	Migration_Strategies = [0, 1], %Default, Disabled
 	Work_Stealing_Strategies = [0, 1], %Default, Disabled
-
 	[bench(Size, IPS, MS, WSS) || IPS <- Initial_Placement_Strategies,
 										   MS <-  Migration_Strategies,
 										   WSS <- Work_Stealing_Strategies],
@@ -37,8 +36,6 @@ bench(Size, IP, MS, WS) ->
 	io:format("prefix\tmap_reduce\tmr\tbig_bang~n", []),
 	configure_do(IP, MS, WS, Size),
 	ok.
-
-
 
 configure_do (IPS, MS, WS, Size) ->
 	erlang:system_flag(scheduler_ip_strategy, IPS),
@@ -73,12 +70,8 @@ do_map_reduce(big) ->
 do_map_reduce(huge) ->
 	do_map_reduce(50);
 do_map_reduce(Size) when is_integer(Size) ->	
-	%io:format("Generating seeds..", []),
 	Seeds = generate_seeds (Size),
-	%io:format("Ok.~n", []),
-	%io:format("Starting mapreduce...~n", []),
 	{Time, _Val} = timer:tc(fun() -> bench_map_reduce (Seeds) end),
-	%io:format("mapreduce: ~p~n~p~n", [Time/1000000, Val]).
 	Time.
 
 do_mr(small) ->
@@ -88,12 +81,8 @@ do_mr(big) ->
 do_mr(huge) ->
 	do_mr(20000);
 do_mr (Size) when is_integer(Size) ->
-	%io:format("Generating seeds..", []),
 	Seeds = generate_seeds (Size),
-	%io:format("Ok.~n", []),
-	%io:format("Starting mr...~n", []),
 	{Time, _Val} = timer:tc(fun() -> bench_mr (Seeds) end),
-	%io:format("mr: ~p~n~p~n", [Time/1000000, Val]).
 	Time.
 
 %%

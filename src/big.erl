@@ -61,5 +61,5 @@ bang(N) when is_integer(N) ->
     send_procs(Procs, {procs, Procs, self()}), 
     receive_msgs(RMsgs), 
     Stop = now(), 
-    lists:foreach(fun (P) -> exit(P, kill) end, Procs), 
+    lists:foreach(fun (P) -> exit(P, normal) end, Procs), 
     timer:now_diff(Stop, Start). 

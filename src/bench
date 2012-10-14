@@ -1,8 +1,0 @@
-#!/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/x86_64-unknown-linux-gnu/escript
-
-main ([Size, IP, MS, WS]) ->
-	NSize = list_to_atom(Size),
-	NIP = utils:to_int(IP),
-	NMS = utils:to_int(MS),
-	NWS = utils:to_int(WS), 
-	bench:bench(NSize, NIP, NMS, NWS).

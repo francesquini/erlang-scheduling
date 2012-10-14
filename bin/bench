@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ERL=/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/erl
+
+$ERL -noshell -pa ../ebin -s bench bench small default default default -s init stop

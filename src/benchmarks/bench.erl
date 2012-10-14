@@ -12,20 +12,17 @@
 %% API Functions
 %%
 
-run ([Size, IP, MS, WS]) ->
-	NIP = utils:to_int(atom_to_list(IP)),
-	NMS = utils:to_int(atom_to_list(MS)),
-	NWS = utils:to_int(atom_to_list(WS)), 
-	bench(Size, NIP, NMS, NWS).
+run ([Size, IP, MS, WS]) -> 
+	bench(Size, IP, MS, WS).
 
 bench() ->
 	bench(small).
 
 bench(Size) ->
-	schedulinga:bind_no_spread(),
-	Initial_Placement_Strategies = [0, 1, 2], %Default, Random, Circular
-	Migration_Strategies = [0, 1], %Default, Disabled
-	Work_Stealing_Strategies = [0, 1], %Default, Disabled
+	scheduling:bind_no_spread(),
+	Initial_Placement_Strategies = [default, random, circular], %Default, Random, Circular
+	Migration_Strategies = [default, disabled], %Default, Disabled
+	Work_Stealing_Strategies = [default, disabled], %Default, Disabled
 	[bench(Size, IPS, MS, WSS) || IPS <- Initial_Placement_Strategies,
 										   MS <-  Migration_Strategies,
 										   WSS <- Work_Stealing_Strategies],
@@ -38,10 +35,10 @@ bench(Size, IP, MS, WS) ->
 	ok.
 
 configure_do (IPS, MS, WS, Size) ->
-	erlang:system_flag(scheduler_ip_strategy, IPS),
-	erlang:system_flag(scheduler_migration_strategy, MS),
-	erlang:system_flag(scheduler_ws_strategy, WS),
-	do (integer_to_list(IPS) ++ integer_to_list(MS) ++ integer_to_list(WS), Size).
+	sched_ip_strategies:set_strategy(IPS),
+	sched_migration_strategies:set_strategy(MS),
+	sched_ws_strategies:set_strategy(WS),
+	do (atom_to_list(IPS) ++ "," ++ atom_to_list(MS) ++ "," ++ atom_to_list(WS), Size).
 
 do() ->
 	do(small).

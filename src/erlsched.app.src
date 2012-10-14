@@ -1,0 +1,12 @@
+{application, erlsched,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { erlsched_app, []}},
+  {env, []}
+ ]}.

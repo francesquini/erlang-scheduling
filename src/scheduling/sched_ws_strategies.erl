@@ -25,13 +25,9 @@ set_disabled() ->
 
 set_strategy (Strategy) ->
 	scheduling:check_scheduler_bindings(),
-	case lists:keyfind(Strategy, 1, strategies()) of
-		{Strategy, StId} ->
-			OldValue = erlang:system_flag(scheduler_ws_strategy, StId),
-			strategy_name(OldValue);
-		_ ->
-			error
-	end.
+	StId = strategy_id(Strategy),
+	OldValue = erlang:system_flag(scheduler_ws_strategy, StId),
+	strategy_name(OldValue).
 
 %%
 %% Local Functions
@@ -43,3 +39,7 @@ strategies() ->
 strategy_name(StrategyId) ->
 	{Name, StrategyId} = lists:keyfind(StrategyId, 2, strategies()),
 	Name.
+
+strategy_id (StrategyName) ->
+	{StrategyName, StId} = lists:keyfind(StrategyName, 1, strategies()),
+	StId.

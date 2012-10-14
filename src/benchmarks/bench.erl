@@ -13,45 +13,53 @@
 %%
 
 run ([Size, IP, MS, WS]) -> 
-	bench(Size, IP, MS, WS).
+	bench(Size, IP, MS, WS, 1).
 
 bench() ->
-	bench(small).
+	bench(small, 1).
 
-bench(Size) ->
+bench(Size, Times) ->
 	scheduling:bind_no_spread(),
 	Initial_Placement_Strategies = [default, random, circular], %Default, Random, Circular
 	Migration_Strategies = [default, disabled], %Default, Disabled
 	Work_Stealing_Strategies = [default, disabled], %Default, Disabled
-	[bench(Size, IPS, MS, WSS) || IPS <- Initial_Placement_Strategies,
+	[bench(Size, IPS, MS, WSS, Times) || IPS <- Initial_Placement_Strategies,
 										   MS <-  Migration_Strategies,
 										   WSS <- Work_Stealing_Strategies],
 	ok.
 
-bench(Size, IP, MS, WS) ->
+bench(Size, IP, MS, WS, Times) ->
 	scheduling:bind_no_spread(),
 	io:format("prefix\tmap_reduce\tmr\tbig_bang~n", []),
-	configure_do(IP, MS, WS, Size),
+	configure_do(IP, MS, WS, Size, Times),
 	ok.
 
-configure_do (IPS, MS, WS, Size) ->
+configure_do (IPS, MS, WS, Size, Times) ->
 	sched_ip_strategies:set_strategy(IPS),
 	sched_migration_strategies:set_strategy(MS),
 	sched_ws_strategies:set_strategy(WS),
-	do (atom_to_list(IPS) ++ "," ++ atom_to_list(MS) ++ "," ++ atom_to_list(WS), Size).
+	do (atom_to_list(IPS) ++ "," ++ atom_to_list(MS) ++ "," ++ atom_to_list(WS), Size, Times).
 
-do() ->
-	do(small).
+do(Times) ->
+	do(small, Times).
 
-do (Size) ->
-	do ("", Size).
+do (Size, Times) ->
+	do ("", Size, Times).
 
-do (Prefix, Size) when is_atom(Size) ->
-	Times = 1,
-	T1 = lists:sum([do_map_reduce(Size) || _ <-lists:seq(1,Times)]) / Times,
-	T2 = lists:sum([do_mr (Size) || _ <-lists:seq(1,Times)]) / Times,
-	T3 = lists:sum([do_big_bang(Size) || _ <-lists:seq(1,Times)]) / Times,
+do (Prefix, Size, Times) ->
+	do (Prefix, Size, Times, fun() -> ok end).
+
+do (Prefix, Size, Times, InitFun) when is_list(Prefix) andalso is_atom(Size) andalso is_integer(Times) andalso is_function(InitFun)->
+%	T1 = lists:sum([init_do_map_reduce(InitFun, Size) || _ <-lists:seq(1,Times)]) / Times,
+	T1 = 0,
+	T2 = lists:sum([init_do_mr (InitFun, Size) || _ <-lists:seq(1,Times)]) / Times,
+	T3 = lists:sum([init_do_big_bang(InitFun, Size) || _ <-lists:seq(1,Times)]) / Times,
 	io:format("~s\t~p\t~p\t~p~n", [Prefix, T1, T2, T3]).
+
+
+init_do_big_bang(InitFun, Size) ->
+	apply(InitFun, []),
+	do_big_bang(Size).
 
 do_big_bang(small) ->
 	big:bang(1000);
@@ -59,6 +67,11 @@ do_big_bang(big) ->
 	big:bang(2000);
 do_big_bang(huge) ->
 	big:bang(4000).
+
+
+init_do_map_reduce(InitFun, Size) ->
+	apply(InitFun, []),
+	do_map_reduce(Size).
 
 do_map_reduce(small) ->
 	do_map_reduce(10);
@@ -70,6 +83,11 @@ do_map_reduce(Size) when is_integer(Size) ->
 	Seeds = generate_seeds (Size),
 	{Time, _Val} = timer:tc(fun() -> bench_map_reduce (Seeds) end),
 	Time.
+
+
+init_do_mr(InitFun, Size) ->
+	apply(InitFun, []),
+	do_mr(Size).
 
 do_mr(small) ->
 	do_mr(2000);

@@ -8,6 +8,7 @@
 	scheduler_count/0,
 	bind_no_spread/0,
 	check_scheduler_bindings/0,
+	set_all_strategies_default/0,
 		  		  
  	% Conversion 
 	cpu_to_scheduler/1, scheduler_to_cpu/1,
@@ -31,6 +32,22 @@ scheduler_count() ->
 
 bind_no_spread() ->
 	erlang:system_flag(scheduler_bind_type, no_spread).
+
+check_scheduler_bindings() ->
+	Bs = tuple_to_list(erlang:system_info(scheduler_bindings)),
+	NotBnd = lists:any(fun (Each) -> Each == unbound end, Bs),
+	if
+		NotBnd -> 
+			io:format("WARNING: At least one scheduler is not bound!~nCheck erlang:system_flag(scheduler_bind_type, How)~n"),
+			nok;
+		true -> ok
+	end.
+
+set_all_strategies_default() ->
+	sched_ip_strategies:cancel_scheduled_strategy_change(),
+	sched_ip_strategies:set_default(),
+	sched_migration_strategies:set_default(),
+	sched_ws_strategies:set_default().
 
 
 % Conversion 
@@ -88,12 +105,3 @@ scheduler_to_cpu(Scheduler, Bindings) when Scheduler =< 0 orelse Scheduler > len
 scheduler_to_cpu(Scheduler, Bindings) ->
 	lists:nth(Scheduler, Bindings).
 
-check_scheduler_bindings() ->
-	Bs = tuple_to_list(erlang:system_info(scheduler_bindings)),
-	NotBnd = lists:any(fun (Each) -> Each == unbound end, Bs),
-	if
-		NotBnd -> 
-			io:format("WARNING: At least one scheduler is not bound!~nCheck erlang:system_flag(scheduler_bind_type, How)~n"),
-			nok;
-		true -> ok
-	end.

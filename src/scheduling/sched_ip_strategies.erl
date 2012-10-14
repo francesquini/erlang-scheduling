@@ -7,6 +7,7 @@
 		 get_current_strategy/0,
 		 set_strategy/1,
 		 set_strategy_after/2,
+		 cancel_scheduled_strategy_change/0,
 		 set_default/0, 
 		 set_random/0,
 		 set_circular/0
@@ -39,6 +40,8 @@ set_strategy_after (Strategy, After_CBS) when is_integer(After_CBS) andalso Afte
 	OldValue = erlang:system_flag(scheduler_ip_strategy, {StId, 'after', After_CBS}),
 	strategy_name(OldValue).
 	
+cancel_scheduled_strategy_change () ->
+	strategy_name(erlang:system_flag(scheduler_ip_strategy, {0, 'after', 0})).
 
 %%
 %% Local Functions

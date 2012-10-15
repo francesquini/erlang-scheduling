@@ -4,11 +4,17 @@
 -module(ip_rounds).
 
 
--export([run/0]).
+-export([run/0, run/1, generate_trace_script/1]).
 
 %%
 %% API Functions
 %%
+
+run ([IPStrategy, Rounds, Size, Times]) ->
+	scheduling:bind_no_spread(),
+	RoundsN = utils:to_int(Rounds),
+	TimesN = utils:to_int(Times),
+	run_in_strategy(IPStrategy, RoundsN, Size, TimesN). 
 
 run() ->
 	Times = 20,
@@ -17,6 +23,21 @@ run() ->
 	run_ip_default(Size, Times),
 	run_ip_circular(Size, Times),
 	run_ip_random(Size, Times).
+
+generate_trace_script([OutFileName]) ->
+	io:format("#!/bin/bash\n"),
+	io:format("DIR=$(dirname $0)\n"),
+	
+	[io:format("$DIR/../erl_prof  $DIR/~s.~p.~p.trace ip_rounds run ~p ~p small 1 >$DIR/~s.~p.~p.res\n" ++
+			   "$DIR/../prof2paje $DIR/~s.~p.~p.trace $DIR/~s.~p.~p.paje\n", 
+			   [OutFileName, Str, Rounds, Str, Rounds, OutFileName, Str, Rounds,
+				OutFileName, Str, Rounds, OutFileName, Str, Rounds]) || 
+		Str <- sched_ip_strategies:get_strategies(), Str /= default, 
+		Rounds <- lists:seq(50, 1000, 50)].
+
+%%
+%% Local Functions
+%%
 
 
 run_ip_default(Size, Times) ->	

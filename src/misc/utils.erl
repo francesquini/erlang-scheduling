@@ -64,7 +64,8 @@ to_string (X) ->
 to_dbstring (X) ->
 	lists:flatten(io_lib:format("~p", [to_string(X)])).
 
-
+to_int(X) when is_atom(X) ->
+	to_int(atom_to_list(X));
 to_int(X) when is_list(X) ->
 	{Res, _} = string:to_integer(X),
 	Res.

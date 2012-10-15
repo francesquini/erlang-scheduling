@@ -1,5 +1,6 @@
 #!/bin/bash
 
-ERL=$(./erl_cl)
+DIR=`dirname $0`
+ERL=$($DIR/erl_cl)
 
-stap ../tracing/erl-sched.stp -o $1 -c "$ERL -noshell -pa ../ebin -s ${*:2} -s init stop"
+stap $DIR/../tracing/erl-sched.stp -o $1 -c "$ERL -noshell -pa $DIR/../ebin -s ${*:2} -s init stop"

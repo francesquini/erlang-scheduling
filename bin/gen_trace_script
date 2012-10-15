@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ERL=$(./erl_cl)
+
+$ERL -noshell -pa ../ebin -s ip_rounds generate_trace_script $1 -s init stop >gen_scripts/ip_rounds_trace.$1.sh
+chmod a+x gen_scripts/ip_rounds_trace.$1.sh
+

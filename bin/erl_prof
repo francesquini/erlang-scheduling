@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ERL=$(./erl_cl)
+
+stap ../tracing/erl-sched.stp -o $1 -c "$ERL -noshell -pa ../ebin -s ${*:2} -s init stop"

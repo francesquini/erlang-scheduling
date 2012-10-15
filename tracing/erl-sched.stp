@@ -9,6 +9,19 @@ probe begin {
 	start = gettimeofday_ns();
 }
 
+/*
+ * Output format
+ * A   - scheduler Active   - A Scheduler# When
+ * I   - scheduler Inactive - I Scheduler# When
+ * M   - process Migration  - M ProcessID Scheduler#From Scheduler#To When
+ * S   - process Spawned    - S ProcessID When
+ * CB  - Check Balance      - CB Scheduler# When
+ * WS  - Work Stealing      - WS Scheduler# When
+ * IPS - Initial Placement Strategy change - IPS Old New When 
+ * CBS - Check Balance Strategy change     - CBS Old New When
+ * WSS - Work Stealing Strategy change     - WSS Old New When
+ */
+
 
 //Scheduler Active
 probe process("/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/x86_64-unknown-linux-gnu/beam.smp").mark("scheduler__active") {
@@ -27,6 +40,12 @@ probe process("/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin
         printf("M\t%s\t%d\t%d\t%d\n", proc, $arg2, $arg3, now());
 }
 
+//Process creation
+probe process("/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/x86_64-unknown-linux-gnu/beam.smp").mark("process__spawn") {
+        proc = user_string ($arg1);
+        printf("S\t%s\t%d\n", proc, now());
+}
+
 //Check-balance
 probe process("/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/x86_64-unknown-linux-gnu/beam.smp").mark("scheduler__check_balance") {
         printf("CB\t%d\t%d\n", $arg1, now());
@@ -37,4 +56,17 @@ probe process("/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin
         printf("WS\t%d\t%d\n", $arg1, now());
 }
 
+//Initial Placement Strategy change
+probe process("/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/x86_64-unknown-linux-gnu/beam.smp").mark("scheduler__ip_strategy_change") {
+	printf("IPS\t%d\t%d\n", $arg1, now());
+}
 
+//Check Balance Strategy change
+probe process("/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/x86_64-unknown-linux-gnu/beam.smp").mark("scheduler__cb_strategy_change") {
+        printf("CBS\t%d\t%d\n", $arg1, now());
+}
+
+//Work Stealing Strategy change
+probe process("/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/x86_64-unknown-linux-gnu/beam.smp").mark("scheduler__ws_strategy_change") {
+        printf("WSS\t%d\t%d\n", $arg1, now());
+}

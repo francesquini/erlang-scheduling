@@ -3,9 +3,6 @@
 
 -module(bench).
 
-%%
-%% Include files
-%%
 -compile(export_all).
 
 %%
@@ -61,6 +58,8 @@ init_do_big_bang(InitFun, Size) ->
 	InitFun(),
 	do_big_bang(Size).
 
+do_big_bang([Size]) ->
+	do_big_bang(Size);
 do_big_bang(small) ->
 	big:bang(1000);
 do_big_bang(big) ->
@@ -73,6 +72,8 @@ init_do_map_reduce(InitFun, Size) ->
 	InitFun(), 
 	do_map_reduce(Size).
 
+do_map_reduce([Size]) ->
+	do_map_reduce(Size);
 do_map_reduce(small) ->
 	do_map_reduce(10);
 do_map_reduce(big) ->
@@ -89,6 +90,8 @@ init_do_mr(InitFun, Size) ->
 	InitFun(),
 	do_mr(Size).
 
+do_mr([Size]) ->
+	do_mr(Size);
 do_mr(small) ->
 	do_mr(2000);
 do_mr(big) ->

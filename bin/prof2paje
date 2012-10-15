@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ERL=$(./erl_cl)
+
+$ERL -noshell -pa ../ebin -s prof2paje convert $* -s init stop

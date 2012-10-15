@@ -27,8 +27,10 @@ run() ->
 generate_trace_script([OutFileName]) ->
 	io:format("#!/bin/bash\n"),
 	io:format("DIR=$(dirname $0)\n"),
+	io:format("SIZE=small\n"),
+	io:format("REPTS=1\n"),
 	
-	[io:format("$DIR/../erl_prof  $DIR/~s.~p.~p.trace ip_rounds run ~p ~p small 1 >$DIR/~s.~p.~p.res\n" ++
+	[io:format("$DIR/../erl_prof  $DIR/~s.~p.~p.trace ip_rounds run ~p ~p $SIZE $REPTS >$DIR/~s.~p.~p.res\n" ++
 			   "$DIR/../prof2paje $DIR/~s.~p.~p.trace $DIR/~s.~p.~p.paje\n", 
 			   [OutFileName, Str, Rounds, Str, Rounds, OutFileName, Str, Rounds,
 				OutFileName, Str, Rounds, OutFileName, Str, Rounds]) || 

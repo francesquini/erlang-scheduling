@@ -58,7 +58,7 @@ do (Prefix, Size, Times, InitFun) when is_list(Prefix) andalso is_atom(Size) and
 
 
 init_do_big_bang(InitFun, Size) ->
-	apply(InitFun, []),
+	InitFun(),
 	do_big_bang(Size).
 
 do_big_bang(small) ->
@@ -70,7 +70,7 @@ do_big_bang(huge) ->
 
 
 init_do_map_reduce(InitFun, Size) ->
-	apply(InitFun, []),
+	InitFun(), 
 	do_map_reduce(Size).
 
 do_map_reduce(small) ->
@@ -86,7 +86,7 @@ do_map_reduce(Size) when is_integer(Size) ->
 
 
 init_do_mr(InitFun, Size) ->
-	apply(InitFun, []),
+	InitFun(),
 	do_mr(Size).
 
 do_mr(small) ->

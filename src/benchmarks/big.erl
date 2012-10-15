@@ -12,11 +12,16 @@
 pinger([], [], true) -> 
     receive 
         {procs, Procs, ReportTo} -> 
-            pinger(Procs, [], ReportTo) 
+            pinger(Procs, [], ReportTo)
     end; 
 pinger([], [], false) -> 
-    receive {ping, From} -> From ! {pong, self()} end, 
-    pinger([],[],false); 
+    receive 
+		{ping, From} -> 
+			From ! {pong, self()},
+			pinger([],[],false);
+		die ->
+			ok
+	end;
 pinger([], [], ReportTo) -> 
     ReportTo ! {done, self()}, 
     pinger([],[],false); 
@@ -61,5 +66,5 @@ bang(N) when is_integer(N) ->
     send_procs(Procs, {procs, Procs, self()}), 
     receive_msgs(RMsgs), 
     Stop = now(), 
-    lists:foreach(fun (P) -> exit(P, normal) end, Procs), 
+    lists:foreach(fun (P) -> P ! die end, Procs), 
     timer:now_diff(Stop, Start). 

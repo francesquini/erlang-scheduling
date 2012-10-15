@@ -39,10 +39,17 @@ run_ip_random(Size, Times) ->
 
 
 run_in_strategy (Strategy, After, Size, Times) when is_atom(Strategy) andalso is_integer(After) andalso is_atom(Size) andalso is_integer(Times) ->
-	bench:do(
-	  utils:to_string(Strategy) ++ "-" ++ utils:to_string(After), Size, Times, 
+	Ref = make_ref(),
+	Self = self(),
+	spawn_link (
 	  fun() -> 
-			  scheduling:set_all_strategies_default(),
-			  sched_ip_strategies:set_strategy(Strategy),
-			  sched_ip_strategies:set_strategy_after(default, After)
-	  end). 
+		bench:do(
+		  utils:to_string(Strategy) ++ "-" ++ utils:to_string(After), Size, Times, 
+		  fun() -> 
+				  scheduling:set_all_strategies_default(),
+				  sched_ip_strategies:set_strategy(Strategy),
+				  sched_ip_strategies:set_strategy_after(default, After)
+		  end),
+		Self ! Ref	
+	  end),
+	receive Ref -> ok end. 

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DIR=`dirname $0`
+ERL=$($DIR/erl_cl)
+
+$ERL -noshell -pa $DIR/../ebin -s $* -s init stop

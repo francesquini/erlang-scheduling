@@ -24,7 +24,7 @@ run() ->
 	run_ip (circular, Size, Times),
 	run_ip (random, Size, Times).
 
-generate_trace_script([OutFileName, Size, RoundMax, RoundStep]) ->
+generate_trace_script([OutFileName, Size, Repetitions, RoundMax, RoundStep]) ->
 	io:format(
 	  	"#!/bin/bash\n" ++
 		"DIR=$(dirname $0)\n" ++
@@ -32,24 +32,30 @@ generate_trace_script([OutFileName, Size, RoundMax, RoundStep]) ->
 		"TRACE_DIR=$DIR/../../traces/\n" ++
 		"TRACE_DIR=$(readlink -f \"$TRACE_DIR\")\n" ++	
 		"SIZE=~s\n" ++
-		"REPTS=1\n" ++
+		"REPTS=~s\n" ++
 		"if [ \"$(whoami)\" != \"root\" ]; then\n" ++
 		"	echo \"Sorry, to probe the Erlang VM you must run this script as root.\"\n" ++
 		"	exit 1\n" ++
 		"fi\n",
-		[Size]),  
+		[Size, Repetitions]),  
 	  
 	RoundList = lists:seq(0, utils:to_int(RoundMax), utils:to_int(RoundStep)),	
-	[io:format("$DIR/../erl_prof  $TRACE_DIR/~s.~p.~p.trace ip_rounds run ~p ~p $SIZE $REPTS >$TRACE_DIR/~s.~p.~p.res\n" ++
+	[io:format("$DIR/../erl_prof  $TRACE_DIR/~s.~p.~p.trace ip_rounds run ~p ~p $SIZE 1 >$TRACE_DIR/~s.~p.~p.one\n" ++
+			   "$DIR/../erl_run   ip_rounds run ~p ~p $SIZE $REPTS >$TRACE_DIR/~s.~p.~p.res\n" ++
 			   "$DIR/../prof2paje $TRACE_DIR/~s.~p.~p.trace $TRACE_DIR/~s.~p.~p.paje\n" ++
 			   "$DIR/../prof2plot ~s.~p.~p.trace $TRACE_DIR >$TRACE_DIR/~s.~p.~p.gp\n" ++
 			   "gnuplot $TRACE_DIR/~s.~p.~p.gp\n",  
 			   [OutFileName, Str, Rnds, Str, Rnds, OutFileName, Str, Rnds,
+				Str, Rnds, OutFileName, Str, Rnds,
 				OutFileName, Str, Rnds, OutFileName, Str, Rnds,
 				OutFileName, Str, Rnds, OutFileName, Str, Rnds,
 				OutFileName, Str, Rnds]) || 
-		Str <- sched_ip_strategies:get_strategies(), Str /= default, 
-		Rnds <- RoundList].
+		Str <- sched_ip_strategies:get_strategies(), 
+		Rnds <- RoundList],
+
+	io:format("$DIR/../res2plot ~s $TRACE_DIR > $TRACE_DIR/~s.rounds.gp\n" ++
+			  "gnuplot $TRACE_DIR/~s.rounds.gp\n",
+			  [OutFileName, OutFileName, OutFileName]).
 
 %%
 %% Local Functions
@@ -80,7 +86,7 @@ run_in_strategy (Strategy, After, Size, Times, InitFun) when is_function (InitFu
 	spawn_link (
 	  fun() -> 
 		bench:do(
-		  utils:to_string(Strategy) ++ "-" ++ utils:to_string(After), 
+		  utils:to_string(Strategy) ++ "\t" ++ utils:to_string(After), 
 		  	Size, Times, InitFun),
 		Self ! Ref
 	  end),

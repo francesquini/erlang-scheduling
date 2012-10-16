@@ -1,0 +1,29 @@
+#!/bin/bash
+#Parameters: BaseName OutputDir
+
+DIR=$(dirname $0)
+DIR=$(readlink -f "$DIR")
+
+BASE_NAME=$1
+OUTPUT_DIR=$(readlink -f "$2")
+
+
+#Plot 1
+echo set terminal png size 1024, 768
+echo set output \"$OUTPUT_DIR/$BASE_NAME.rounds.png\"
+echo set title \"Process execution times\"
+echo set xlabel \"Rounds with alternative IPS\"
+echo set ylabel \"Execution time \(s\)\"
+
+BASE_NAME=$1
+PLOT=
+for STRATEGY in `cat $OUTPUT_DIR/$BASE_NAME.*.res |cut -f1|sort -u`
+do
+	PREFIX=$BASE_NAME.$STRATEGY
+	OUT=$OUTPUT_DIR/$PREFIX.total.res
+	cat $OUTPUT_DIR/$PREFIX.*.res |sort -g -k 2,2 > $OUT
+	PLOT="$PLOT\"$OUT\" u 2:(\$4/1000000) w l title \"$STRATEGY - MapReduce\","
+	PLOT="$PLOT\"$OUT\" u 2:(\$5/1000000) w l title \"$STRATEGY - Big Bang\","
+done
+
+echo plot ${PLOT:0:-1}

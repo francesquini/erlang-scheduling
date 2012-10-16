@@ -3,4 +3,9 @@
 DIR=`dirname $0`
 ERL=$($DIR/erl_cl)
 
+if [ "$(whoami)" != "root" ]; then
+	echo "Sorry, to probe the Erlang VM you must run this script as root."
+	exit 1
+fi
+
 stap $DIR/../tracing/erl-sched.stp -o $1 -c "$ERL -noshell -pa $DIR/../ebin -s ${*:2} -s init stop"

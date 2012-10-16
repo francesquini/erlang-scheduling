@@ -1,0 +1,23 @@
+#!/bin/bash
+
+DIR=$(dirname $0)
+DIR=$(readlink -f "$DIR")
+TRACE_DIR=$DIR/../../traces
+TRACE_DIR=$(readlink -f "$TRACE_DIR")
+
+OUTPUT_DIR=$(readlink -f "$2")
+FILE_NAME=$OUTPUT_DIR/$1.process_creation
+
+grep "^S\b" $OUTPUT_DIR/$1 |cut -f3 > $FILE_NAME
+
+echo set terminal png size 1024, 768
+echo set output \"$FILE_NAME.png\"
+echo set title \"Process creation\"
+echo set xlabel \"Execution Time \(s\)\"
+echo set ylabel \"Number of processes\"
+echo set style histogram clustered gap 1
+echo set style fill solid border -1
+echo binwidth=0.1
+echo set boxwidth binwidth
+echo bin\(x,width\)=width*floor\(x/width\) + binwidth/2.0
+echo plot \"$FILE_NAME\" u \(bin\(\(\$1/1000000000\),binwidth\)\):\(1.0\) smooth freq w boxes notitle

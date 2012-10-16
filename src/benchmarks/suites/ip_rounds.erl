@@ -28,7 +28,9 @@ generate_trace_script([OutFileName, Size, RoundMax, RoundStep]) ->
 	io:format(
 	  	"#!/bin/bash\n" ++
 		"DIR=$(dirname $0)\n" ++
+		"DIR=$(readlink -f \"$DIR\")\n"++
 		"TRACE_DIR=$DIR/../../traces/\n" ++
+		"TRACE_DIR=$(readlink -f \"$TRACE_DIR\")\n" ++	
 		"SIZE=~s\n" ++
 		"REPTS=1\n" ++
 		"if [ \"$(whoami)\" != \"root\" ]; then\n" ++
@@ -39,9 +41,13 @@ generate_trace_script([OutFileName, Size, RoundMax, RoundStep]) ->
 	  
 	RoundList = lists:seq(0, utils:to_int(RoundMax), utils:to_int(RoundStep)),	
 	[io:format("$DIR/../erl_prof  $TRACE_DIR/~s.~p.~p.trace ip_rounds run ~p ~p $SIZE $REPTS >$TRACE_DIR/~s.~p.~p.res\n" ++
-			   "$DIR/../prof2paje $TRACE_DIR/~s.~p.~p.trace $TRACE_DIR/~s.~p.~p.paje\n", 
+			   "$DIR/../prof2paje $TRACE_DIR/~s.~p.~p.trace $TRACE_DIR/~s.~p.~p.paje\n" ++
+			   "$DIR/../prof2plot ~s.~p.~p.trace $TRACE_DIR >$TRACE_DIR/~s.~p.~p.gp\n" ++
+			   "gnuplot $TRACE_DIR/~s.~p.~p.gp\n",  
 			   [OutFileName, Str, Rnds, Str, Rnds, OutFileName, Str, Rnds,
-				OutFileName, Str, Rnds, OutFileName, Str, Rnds]) || 
+				OutFileName, Str, Rnds, OutFileName, Str, Rnds,
+				OutFileName, Str, Rnds, OutFileName, Str, Rnds,
+				OutFileName, Str, Rnds]) || 
 		Str <- sched_ip_strategies:get_strategies(), Str /= default, 
 		Rnds <- RoundList].
 

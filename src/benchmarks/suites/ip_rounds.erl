@@ -24,18 +24,18 @@ run() ->
 	run_ip_circular(Size, Times),
 	run_ip_random(Size, Times).
 
-generate_trace_script([OutFileName]) ->
+generate_trace_script([OutFileName, Size, RoundMax, RoundStep]) ->
 	io:format("#!/bin/bash\n"),
 	io:format("DIR=$(dirname $0)\n"),
-	io:format("SIZE=small\n"),
+	io:format("SIZE=~s\n", [Size]),
 	io:format("REPTS=1\n"),
-	
+	RoundList = lists:seq(utils:to_int(RoundStep), utils:to_int(RoundMax), utils:to_int(RoundStep)),	
 	[io:format("$DIR/../erl_prof  $DIR/~s.~p.~p.trace ip_rounds run ~p ~p $SIZE $REPTS >$DIR/~s.~p.~p.res\n" ++
 			   "$DIR/../prof2paje $DIR/~s.~p.~p.trace $DIR/~s.~p.~p.paje\n", 
-			   [OutFileName, Str, Rounds, Str, Rounds, OutFileName, Str, Rounds,
-				OutFileName, Str, Rounds, OutFileName, Str, Rounds]) || 
+			   [OutFileName, Str, Rnds, Str, Rnds, OutFileName, Str, Rnds,
+				OutFileName, Str, Rnds, OutFileName, Str, Rnds]) || 
 		Str <- sched_ip_strategies:get_strategies(), Str /= default, 
-		Rounds <- lists:seq(50, 1000, 50)].
+		Rnds <- RoundList].
 
 %%
 %% Local Functions

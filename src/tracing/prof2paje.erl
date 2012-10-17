@@ -24,19 +24,20 @@ convert ([InputFileName, OutputFileName]) ->
 convert (InputFileName, OutputFileName) ->
 	{ok, InFile} = file:open(InputFileName, [read]),
 	{ok, OutFile} = file:open(OutputFileName, [read, write]),
-	{MaxScheduler, Events} = processInputFile(InFile),
+	MaxScheduler = find_max_scheduler(InFile),
 	writeHeader(OutFile, MaxScheduler),
-	writeEvents(OutFile, Events),
+	file:position(InFile, bof),
+	process_file(InFile, OutFile),
 	file:close(InFile),
 	file:close(OutFile).
 	
 %%
 %% Local Functions
 %%
-processInputFile(File) ->
-	processInputFile(File, [], -1).
+find_max_scheduler(File) ->
+	find_max_scheduler(File, -1).
 
-processInputFile (File, Acc, MaxScheduler) ->
+find_max_scheduler (File, MaxScheduler) ->
 	case file:read_line(File) of
 		{ok, Line} ->
 			Event = string:tokens(Line, "\t "),
@@ -49,10 +50,24 @@ processInputFile (File, Acc, MaxScheduler) ->
 					["M", _, SFrom, Sto, _] -> max (utils:to_int(SFrom), utils:to_int(Sto));
 					_ -> -1
 				end),						
-			processInputFile(File, [Event | Acc], NMaxScheduler);
+			find_max_scheduler(File, NMaxScheduler);
 		 eof -> 
-			{MaxScheduler, lists:reverse(Acc)}
+			MaxScheduler
 	end.
+
+process_file(InFile, OutFile) ->
+	process_file(InFile, OutFile, 1).
+
+process_file(InFile, OutFile, Cont) ->
+	case file:read_line(InFile) of
+		{ok, Line} ->
+			Event = string:tokens(Line, "\t "),
+			NCont = writeEvent(OutFile, Event, Cont),						
+			process_file(InFile, OutFile, NCont);
+		 eof -> 
+			ok
+	end.
+
 
 writeHeader (File, MaxScheduler) when is_integer(MaxScheduler) ->
 	H1 = [		
@@ -145,43 +160,39 @@ writeHeader (File, MaxScheduler) when is_integer(MaxScheduler) ->
 	[io:fwrite(File, "~s~n", [Line]) || Line <- H2],
 	ok. 
 
-writeEvents(File, Events) ->
-	writeEvents(File, Events, 1).
 
-writeEvents(_, [], _) ->
-	ok;
 %Check-Balance
-writeEvents(File, [["CB", Scheduler, When] | Events], Cont) ->
+writeEvent(File, ["CB", Scheduler, When], Cont) ->
 	io:fwrite(File, "21 ~p CB CB ~p~n", [to_int(When)/1000000000, Scheduler]),
-	writeEvents(File, Events, Cont);
+	Cont;
 %Work-Stealing
-writeEvents(File, [["WS", Scheduler, When] | Events], Cont) ->
+writeEvent(File, ["WS", Scheduler, When], Cont) ->
 	io:fwrite(File, "21 ~p WS S~s ~p~n", [to_int(When)/1000000000, Scheduler, 0]),
-	writeEvents(File, Events, Cont);
+	Cont;
 %IPS
-writeEvents(File, [["IPS", Strategy, When] | Events], Cont) ->
+writeEvent(File, ["IPS", Strategy, When], Cont) ->
 	io:fwrite(File, "21 ~p IPS SC ~p~n", [to_int(When)/1000000000, Strategy]),
-	writeEvents(File, Events, Cont);
+	Cont;
 %CBS
-writeEvents(File, [["CBS", Strategy, When] | Events], Cont) ->
+writeEvent(File, ["CBS", Strategy, When], Cont) ->
 	io:fwrite(File, "21 ~p CBS SC ~p~n", [to_int(When)/1000000000, Strategy]),
-	writeEvents(File, Events, Cont);
+	Cont;
 %WSS
-writeEvents(File, [["WSS", Strategy, When] | Events], Cont) ->
+writeEvent(File, ["WSS", Strategy, When], Cont) ->
 	io:fwrite(File, "21 ~p WSS SC ~p~n", [to_int(When)/1000000000, Strategy]),
-	writeEvents(File, Events, Cont);
+	Cont;
 %Spawn
-writeEvents(File, [["S", _Process, _When] | Events], Cont) ->
+writeEvent(_File, ["S", _Process, _When], Cont) ->
 	%Ignore spawns for the time being
-	writeEvents(File, Events, Cont);
+	Cont;
 %Scheduler Active/Inactive
-writeEvents(File, [[State, Scheduler, When] | Events], Cont) -> %State = A or I
+writeEvent(File, [State, Scheduler, When], Cont) -> %State = A or I
 	io:fwrite(File, "10 ~p SS S~s ~s~n", [to_int(When)/1000000000, Scheduler, State]),
-	writeEvents(File, Events, Cont);
+	Cont;
 %Process Migration
-writeEvents(File, [["M", _, From, To, When] | Events], Cont) ->
+writeEvent(File, ["M", _, From, To, When], Cont) ->
 	NWhen = to_int(When) / 1000000000,
 	Bit = 0.0000000001,
 	io:fwrite(File, "42 ~p Mig VM S~s ~p ~p~n", [NWhen, From, Cont, Cont]),
 	io:fwrite(File, "43 ~p Mig VM S~s ~p ~p~n", [NWhen + Bit, To, Cont, Cont]),
-	writeEvents(File, Events, Cont + 1).
+	Cont + 1.

@@ -52,7 +52,7 @@ get_strategies() ->
 %%
 
 strategies() ->
-	[{default, 0}, {random, 1}, {circular, 2}].
+	[{default, 0}, {random, 1}, {circular, 2}, {simple_random, 3}, {local_circular, 4}].
 
 strategy_name(StrategyId) ->
 	{Name, StrategyId} = lists:keyfind(StrategyId, 2, strategies()),

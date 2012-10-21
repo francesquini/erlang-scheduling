@@ -1,9 +1,13 @@
 #!/bin/bash
 
+#PARAMETERS: OutputPrefix Bench Size Repetitions RoundMax RoundStep
+
 DIR=`dirname $0`
 ERL=$($DIR/erl_cl)
 
+GEN_FILE=$DIR/gen_scripts/ip_rounds_trace.$1.$2.sh
+
 mkdir $DIR/gen_scripts 2> /dev/null
-$ERL -noshell -pa $DIR/../ebin -s ip_rounds generate_trace_script $* -s init stop >$DIR/gen_scripts/ip_rounds_trace.$1.sh
-chmod a+x $DIR/gen_scripts/ip_rounds_trace.$1.sh
+$ERL -noshell -pa $DIR/../ebin -s ip_rounds generate_trace_script $* -s init stop >$GEN_FILE
+chmod a+x $GEN_FILE
 

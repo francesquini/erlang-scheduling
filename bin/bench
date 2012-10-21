@@ -1,5 +1,6 @@
 #!/bin/bash
 
-ERL=/home/emilio/Documentos2/Doutorado/sideprojects/versioned/otp/bin/erl
+DIR=$(dirname $0)
+ERL=$($DIR/erl_cl)
 
-$ERL -noshell -pa ../ebin -s bench bench small default default default -s init stop
+$ERL -noshell -pa ../ebin -s bench bench -s init stop

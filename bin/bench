@@ -1,6 +1,5 @@
 #!/bin/bash
 
 DIR=$(dirname $0)
-ERL=$($DIR/erl_cl)
-
-$ERL -noshell -pa ../ebin -s bench bench -s init stop
+ERL_RUN=$DIR/erl_run
+$ERL_RUN bench bench

@@ -1,6 +1,6 @@
 #!/bin/bash
 
 DIR=$(dirname $0)
-ERL=$($DIR/erl_cl)
+ERL_RUN=$DIR/erl_run
 
-$ERL -noshell -pa $DIR/../ebin -s prof2paje convert $* -s init stop
+$ERL_RUN prof2paje convert $*

@@ -10,7 +10,7 @@
 %%
 
 run ([Bench, IPStrategy, Rounds, Size, Times]) ->
-	scheduling:bind_no_spread(),
+	ok = scheduling:check_scheduler_bindings(),
 	RoundsN = utils:to_int(Rounds),
 	TimesN = utils:to_int(Times),
 	run_in_strategy(Bench, IPStrategy, RoundsN, Size, TimesN). 

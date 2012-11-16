@@ -11,7 +11,7 @@
 %%
 
 available_benchmarks() ->
-	[map_reduce, mr, big_bang].
+	[map_reduce, mr, big_bang, mandel].
 
 bench() ->
 	do (all, "", small, 1, fun() -> ok end).
@@ -38,9 +38,12 @@ do_bench (big_bang, Size) ->
 do_bench (map_reduce, Size) ->
 	do_map_reduce(Size);
 do_bench (mr, Size) ->
-	do_mr(Size).
+	do_mr(Size);
+do_bench (mandel, Size) ->
+	do_mandel(Size).
 
-						
+do_big_bang([Size])->
+	do_big_bang(Size);
 do_big_bang(small) ->
 	big:bang(1000);
 do_big_bang(big) ->
@@ -48,7 +51,8 @@ do_big_bang(big) ->
 do_big_bang(huge) ->
 	big:bang(4000).
 
-
+do_map_reduce([Size])->
+	do_map_reduce(Size);
 do_map_reduce(small) ->
 	do_map_reduce(10);
 do_map_reduce(big) ->
@@ -60,7 +64,8 @@ do_map_reduce(Size) when is_integer(Size) ->
 	{Time, _Val} = timer:tc(fun() -> bench_map_reduce (Seeds) end),
 	Time.
 
-
+do_mr([Size])->
+	do_mr(Size);
 do_mr(small) ->
 	do_mr(2000);
 do_mr(big) ->
@@ -70,6 +75,18 @@ do_mr(huge) ->
 do_mr (Size) when is_integer(Size) ->
 	Seeds = generate_seeds (Size),
 	{Time, _Val} = timer:tc(fun() -> bench_mr (Seeds) end),
+	Time.
+
+do_mandel([Size])->
+	do_mandel(Size);
+do_mandel(small) ->
+	do_mandel(1000);
+do_mandel(big) ->
+	do_mandel(3000);
+do_mandel(huge) -> %Attention!!! Uses LOTS of memory.
+	do_mandel(5000);
+do_mandel(Size) when is_integer (Size) ->
+	{Time, _Val} = timer:tc(fun() -> mandel_par:run(Size) end),
 	Time.
 
 %%

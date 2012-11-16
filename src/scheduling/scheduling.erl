@@ -6,7 +6,6 @@
 -export ([
 	% Misc
 	scheduler_count/0,
-	bind_no_spread/0,
 	check_scheduler_bindings/0,
 	set_all_strategies_default/0,
 		  		  
@@ -29,9 +28,6 @@
 
 scheduler_count() ->
 	erlang:system_info(schedulers).
-
-bind_no_spread() ->
-	erlang:system_flag(scheduler_bind_type, no_spread).
 
 check_scheduler_bindings() ->
 	Bs = tuple_to_list(erlang:system_info(scheduler_bindings)),

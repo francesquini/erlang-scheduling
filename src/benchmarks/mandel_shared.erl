@@ -1,0 +1,60 @@
+-module(mandel_shared).
+
+-include("mandel.hrl").
+
+-export([run/2, calculate_pixel/3, write_to_file/3, new_mandel/1]).
+
+run(Size, Fun_Calc_Image) when is_integer(Size) andalso is_function(Fun_Calc_Image)->
+	Mandel = new_mandel(Size),
+	Fun_Calc_Image(Mandel).
+
+write_to_file (Filename, Mandel, Image) ->
+	Size = Mandel#mandel.size,
+	{ok, File} = file:open(Filename, [write]),
+	io:fwrite(File, "P6~n~p ~p~n255~n", [Size, Size]),
+	Bin = list_to_binary([tuple_to_list(Pixel) || Pixel <- Image]),
+	file:write(File, Bin),
+	file:close(File).
+
+new_mandel (Size) ->	
+	Max_complex = 2,
+	Delta = Max_complex * 2 / Size,
+	Max_iter = 100,
+	Max_colors = 2000,
+	Pal = calculate_pallete(Max_colors),
+	Bailout2 = 4,	
+	#mandel{
+		size = Size,
+		delta = Delta,
+		max_complex = Max_complex,
+		max_iter = Max_iter,
+		max_colors = Max_colors,
+		pallete = Pal,
+		bailout2 = Bailout2}.
+
+calculate_pallete(Max_colors) ->
+	array:from_list([
+		{
+		  (255 - Pos * 2) rem 256, %R
+		  (Pos * 11) rem 256,      %G
+	      (Pos * 7 ) rem 256       %B
+	   	} || Pos <- lists:seq(0, Max_colors)]).
+
+calculate_pixel(Mandel, X, Y) ->
+	Size2 = Mandel#mandel.size / 2,
+	Ix = (X - Size2) * Mandel#mandel.delta / 8 - 0.5,
+	Iy = (Y - Size2) * Mandel#mandel.delta / 8 + 0.5,
+	Iters = calculate_complex_loop ({Ix, Iy}, Mandel),
+	Color = Iters rem Mandel#mandel.max_colors,
+	array:get(Color, Mandel#mandel.pallete).
+	
+calculate_complex_loop (C, Mandel) ->
+	calculate_complex_loop (C, {0, 0}, 0, 0, Mandel#mandel.max_iter, Mandel#mandel.bailout2).
+																					 
+calculate_complex_loop (_C, _Z, Iter, Norma, MaxIter, Bailout) when Iter > MaxIter orelse Norma > Bailout ->
+	Iter;
+calculate_complex_loop (C = {C0, C1}, {Z0, Z1}, Iter, _Norma, MaxIter, Bailout) ->
+	{M1, M2} = ?Mult(Z0, Z1, Z0, Z1),
+	Z2 = ?Sum (M1, M2, C0, C1),
+	Norma2 = ?Norma(Z0, Z1),
+	calculate_complex_loop (C, Z2, Iter + 1, Norma2, MaxIter, Bailout).

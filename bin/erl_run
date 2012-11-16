@@ -3,4 +3,4 @@
 DIR=`dirname $0`
 ERL=$($DIR/erl_cl)
 
-$ERL +sbt nsdf +Mea min -noshell -pa $DIR/../ebin -s $* -s init stop
+$ERL +sbt nsdf +scl false -noshell -pa $DIR/../ebin -s $* -s init stop

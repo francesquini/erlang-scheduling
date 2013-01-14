@@ -8,6 +8,8 @@
 	scheduler_count/0,
 	check_scheduler_bindings/0,
 	set_all_strategies_default/0,
+	hubs_only/0,
+	set_hubs_only/1,
 		  		  
  	% Conversion 
 	cpu_to_scheduler/1, scheduler_to_cpu/1,
@@ -43,7 +45,14 @@ set_all_strategies_default() ->
 	sched_ip_strategies:cancel_scheduled_strategy_change(),
 	sched_ip_strategies:set_default(),
 	sched_migration_strategies:set_default(),
-	sched_ws_strategies:set_default().
+	sched_ws_strategies:set_default(),
+	set_hubs_only(false).
+
+hubs_only() ->
+	erlang:system_info(scheduler_hubs_only).
+
+set_hubs_only(Bool) when Bool == true orelse Bool == false ->
+	erlang:system_flag(scheduler_hubs_only, Bool).
 
 
 % Conversion 

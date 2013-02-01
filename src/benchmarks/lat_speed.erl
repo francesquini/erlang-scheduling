@@ -50,8 +50,8 @@ do_run_tests(OutputPath, SCpu, RCpu, N, Payload) ->
 
 
 sender_loop (Receiver, Count, CPUId, Payload, File) ->
-	utils:set_cpu(CPUId),
-	CPUId = utils:current_cpu(),
+	scheduling:set_cpu(CPUId),
+	CPUId = scheduling:current_cpu(),
 	receive ok -> ok end,
 	sender_loop(Receiver, Count, Payload, File).
 sender_loop(Receiver, 0, _Payload, _File) ->
@@ -73,8 +73,8 @@ sender_loop(Receiver, Count, Payload, File) ->
 	end.
 
 receiver_loop(Orig, Cpu) ->
-	utils:set_cpu(Cpu),
-	Cpu = utils:current_cpu(),
+	scheduling:set_cpu(Cpu),
+	Cpu = scheduling:current_cpu(),
 	receive 
 		Sender when is_pid(Sender) ->
 			Sender ! ok,

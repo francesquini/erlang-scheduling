@@ -1,20 +1,22 @@
 -module(lat_speed).
 
--export([run_tests/0, run_tests/4]).
+-export([run_tests/1, run_tests/5]).
 
 %local export
 -export([sender_loop/5, receiver_loop/2, generate_payloads/2]).
 
-combinations() -> %OS CPU ID
-	[ {0, 0}, {0, 1}, {0, 2} ]. %Warp
-	%[ {0, 0}, {0, 12}, {0, 4}, {0, 1} ]. %idkonn
-	%[ {0, 1}, {0, 4}]. %idrouille
+combinations(warp) ->
+	[{0, 0}, {0, 1}, {0, 2}]; %Warp
+combinations(idrouille) ->
+	[{0, 0}, {0, 1}, {0, 4}]; %idrouille
+combinations(idkonn) ->
+	[{0, 0}, {0, 12}, {0, 4}, {0, 1}]. %idkonn
 
-run_tests() -> %defaults
+run_tests(Machine) -> %defaults
 	io:format("Starting at: ~p\n", [utils:time_to_number(now())]),
-	run_tests("/tmp/res/", 1000, 10, 10).
+	run_tests("/tmp/res/", 10000, 1, 13, Machine).
 
-run_tests(OutputPath, N, MinPayloadSize, MaxPayloadSize) ->
+run_tests(OutputPath, N, MinPayloadSize, MaxPayloadSize, Machine) ->
 	HeapSize = 1 bsl (MaxPayloadSize + 2),
 	VHeapSize = 200 * HeapSize,
 	erlang:system_flag(min_bin_vheap_size, VHeapSize),	
@@ -24,8 +26,8 @@ run_tests(OutputPath, N, MinPayloadSize, MaxPayloadSize) ->
 	erlang:system_flag(scheduler_bind_type, no_spread),
 	io:format("Bind type: ~p ~n", [erlang:system_info(scheduler_bind_type)]),
 	io:format("Bindings: ~p ~n", [erlang:system_info(scheduler_bindings)]),	
-	io:format("Running with CPUS: ~p~n", [combinations()]),
-	[run_tests(OutputPath, S, R, N, MinPayloadSize, MaxPayloadSize) || {S, R} <- combinations()],
+	io:format("Running with CPUS: ~p~n", [combinations(Machine)]),
+	[run_tests(OutputPath, S, R, N, MinPayloadSize, MaxPayloadSize) || {S, R} <- combinations(Machine)],
 	ok.
 
 run_tests(OutputPath, SCpu, RCpu, N, MinPayloadSize, MaxPayloadSize) ->

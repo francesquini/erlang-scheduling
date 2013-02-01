@@ -3,7 +3,7 @@
 -export([run_tests/1, run_tests/5]).
 
 %local export
--export([sender_loop/5, receiver_loop/2, generate_payloads/2]).
+-export([sender_loop/6, receiver_loop/2, generate_payloads/2]).
 
 combinations(warp) ->
 	[{0, 0}, {0, 1}, {0, 2}]; %Warp
@@ -27,42 +27,46 @@ run_tests(OutputPath, N, MinPayloadSize, MaxPayloadSize, Machine) ->
 	io:format("Bind type: ~p ~n", [erlang:system_info(scheduler_bind_type)]),
 	io:format("Bindings: ~p ~n", [erlang:system_info(scheduler_bindings)]),	
 	io:format("Running with CPUS: ~p~n", [combinations(Machine)]),
-	[run_tests(OutputPath, S, R, N, MinPayloadSize, MaxPayloadSize) || {S, R} <- combinations(Machine)],
+	FileName = OutputPath ++ "Latency",
+ 	file:delete(FileName),
+	{ok, File} = file:open(FileName, [read, write]),
+	io:fwrite(File, "from\tto\tsize\ttime\n", []),
+	[run_tests(File, S, R, N, MinPayloadSize, MaxPayloadSize) || {S, R} <- combinations(Machine)],
+	file:close(File),
 	ok.
 
-run_tests(OutputPath, SCpu, RCpu, N, MinPayloadSize, MaxPayloadSize) ->
-	io:format("Started ~p -> ~p  : ~p\n", [SCpu, RCpu, utils:time_to_number(now())]),
-	[do_run_tests(OutputPath, SCpu, RCpu, N, Payload) || Payload <- generate_payloads(MinPayloadSize, MaxPayloadSize)],
+run_tests(File, SCpu, RCpu, N, MinPayloadSize, MaxPayloadSize) ->
+	io:format("Started ~p -> ~p  : ~p\n", [SCpu, RCpu, utils:time_to_number(now())]),	
+	[do_run_tests(File, SCpu, RCpu, N, Payload) || Payload <- generate_payloads(MinPayloadSize, MaxPayloadSize)],	
 	io:format("Ended ~p -> ~p  : ~p\n", [SCpu, RCpu, utils:time_to_number(now())]),
 	ok.		  
 	
-do_run_tests(OutputPath, SCpu, RCpu, N, Payload) ->	
-	Label = utils:to_string(SCpu) ++ "-" ++ utils:to_string(RCpu),
-	Size = utils:to_string((byte_size(list_to_binary(Payload)))),
-	Filename = OutputPath ++ "Latency-" ++ Label ++ "-" ++ Size,
-	file:delete(Filename),
-	{ok, File} = file:open(Filename, [read, write]),
-	io:fwrite(File, "~s~n", [Size]),
+do_run_tests(File, SCpu, RCpu, N, Payload) ->	
+%	Label = utils:to_string(SCpu) ++ "-" ++ utils:to_string(RCpu),
+%	Size = utils:to_string((byte_size(list_to_binary(Payload)))),
+%	Filename = OutputPath ++ "Latency-" ++ Label ++ "-" ++ Size,
+%	file:delete(Filename),
+%	{ok, File} = file:open(Filename, [read, write]),
+%	io:fwrite(File, "~s~n", [Size]),
 	Receiver = spawn_link(?MODULE, receiver_loop, [self(), RCpu]),
-	Sender = spawn_link(?MODULE, sender_loop, [Receiver, N, SCpu, Payload, File]),
+	Sender = spawn_link(?MODULE, sender_loop, [Receiver, N, SCpu, RCpu, Payload, File]),
 	Receiver ! Sender,
 	receive ended -> ok end,
-	file:close(File),
 	garbage_collect().
 
 
-sender_loop (Receiver, Count, CPUId, Payload, File) ->
-	scheduling:set_cpu(CPUId),
-	CPUId = scheduling:current_cpu(),
+sender_loop (Receiver, Count, SCpu, RCpu, Payload, File) ->
+	scheduling:set_cpu(SCpu),
+	SCpu = scheduling:current_cpu(),
 	receive ok -> ok end,
-	sender_loop(Receiver, Count, Payload, File).
-sender_loop(Receiver, 0, _Payload, _File) ->
+	sender_loop2(Receiver, SCpu, RCpu, Count, Payload, File).
+sender_loop2(Receiver, _SCpu, _RCpu, 0, _Payload, _File) ->
 	Receiver ! stop;
-sender_loop(Receiver, Count, Payload, File) ->
+sender_loop2(Receiver, SCpu, RCpu, Count, Payload, File) ->
 	Before = os:timestamp(),
 	Receiver ! Payload,
 	receive 
-		_Payload -> 
+		_Payload2 -> 
 			Diff = timer:now_diff(os:timestamp(), Before),
 			D2 = if 
 				Diff == 0 -> 
@@ -70,8 +74,9 @@ sender_loop(Receiver, Count, Payload, File) ->
 				true -> 
 					Diff
 			end,
-			io:fwrite(File,"~p~n", [D2]),
-			sender_loop(Receiver, Count -1, Payload, File)
+			Size = byte_size(list_to_binary(Payload)),
+			io:fwrite(File,"~p\t~p\t~p\t~p~n", [SCpu, RCpu, Size, D2]),
+			sender_loop2(Receiver, SCpu, RCpu, Count -1, Payload, File)
 	end.
 
 receiver_loop(Orig, Cpu) ->

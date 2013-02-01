@@ -42,12 +42,6 @@ run_tests(File, SCpu, RCpu, N, MinPayloadSize, MaxPayloadSize) ->
 	ok.		  
 	
 do_run_tests(File, SCpu, RCpu, N, Payload) ->	
-%	Label = utils:to_string(SCpu) ++ "-" ++ utils:to_string(RCpu),
-%	Size = utils:to_string((byte_size(list_to_binary(Payload)))),
-%	Filename = OutputPath ++ "Latency-" ++ Label ++ "-" ++ Size,
-%	file:delete(Filename),
-%	{ok, File} = file:open(Filename, [read, write]),
-%	io:fwrite(File, "~s~n", [Size]),
 	Receiver = spawn_link(?MODULE, receiver_loop, [self(), RCpu]),
 	Sender = spawn_link(?MODULE, sender_loop, [Receiver, N, SCpu, RCpu, Payload, File]),
 	Receiver ! Sender,

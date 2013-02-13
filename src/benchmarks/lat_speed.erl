@@ -16,7 +16,7 @@ run_tests([Machine]) ->
 	run_tests(Machine);
 run_tests(Machine) -> %defaults
 	io:format("Starting at: ~p\n", [utils:time_to_number(now())]),
-	run_tests("/tmp/", 1000, 1, 15, Machine).
+	run_tests("/tmp/", 10000, 1, 15, Machine).
 
 run_tests(OutputPath, N, MinPayloadSize, MaxPayloadSize, Machine) ->
 	HeapSize = 1 bsl (MaxPayloadSize + 2),

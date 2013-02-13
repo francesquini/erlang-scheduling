@@ -12,9 +12,11 @@ combinations(idrouille) ->
 combinations(idkonn) ->
 	[{0, 0}, {0, 12}, {0, 4}, {0, 1}]. %idkonn
 
+run_tests([Machine]) ->
+	run_tests(Machine);
 run_tests(Machine) -> %defaults
 	io:format("Starting at: ~p\n", [utils:time_to_number(now())]),
-	run_tests("/tmp/res/", 10000, 1, 13, Machine).
+	run_tests("/tmp/", 1000, 1, 15, Machine).
 
 run_tests(OutputPath, N, MinPayloadSize, MaxPayloadSize, Machine) ->
 	HeapSize = 1 bsl (MaxPayloadSize + 2),
@@ -69,7 +71,9 @@ sender_loop2(Receiver, SCpu, RCpu, Count, Payload, File) ->
 					Diff
 			end,
 			Size = byte_size(list_to_binary(Payload)),
-			io:fwrite(File,"~p\t~p\t~p\t~p~n", [SCpu, RCpu, Size, D2]),
+			%Each list element uses an extra word
+			%http://www.erlang.org/doc/efficiency_guide/advanced.html
+			io:fwrite(File,"~p\t~p\t~p\t~p~n", [SCpu, RCpu, Size * 2, D2]), 
 			sender_loop2(Receiver, SCpu, RCpu, Count -1, Payload, File)
 	end.
 
@@ -99,7 +103,7 @@ generate_payloads(Min, Max, Acc) ->
 	case Min > Max of
 		true -> Acc;
 		false -> 
-			Pl = [42 || _ <- lists:seq(1, 1 bsl Min)],
+			Pl = [42 || _ <- lists:seq(0, (1 bsl (Min - 1)) - 1)],
 			generate_payloads(Min + 1, Max, [Pl | Acc])
 	end.
 

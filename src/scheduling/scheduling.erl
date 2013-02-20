@@ -6,17 +6,23 @@
 -export ([
 	% Misc
 	scheduler_count/0,
-	check_scheduler_bindings/0,
+	check_scheduler_bindings/0, check_scheduler_bindings/1,
 	set_all_strategies_default/0,
-	hubs_only/0,
-	set_hubs_only/1,
+	
+	hubs_only/0, set_hubs_only/1,	
+	hub_process/0, set_hub_process/1,
+	hub_processes/0, hub_processes_count/0,
+	hub_process_spawn_flag/0,
 		  		  
  	% Conversion 
 	cpu_to_scheduler/1, scheduler_to_cpu/1,
 
 	% Process Pinning
 	current_scheduler/0, set_scheduler/1, unset_scheduler/0, 
-	current_cpu/0, set_cpu/1, unset_cpu/0		 
+	current_cpu/0, set_cpu/1, unset_cpu/0,
+		 
+	% Memory
+	memory_allocation_policy/0, deferred_memory_allocation/0	 
 		 		  
 ]).
 
@@ -30,6 +36,12 @@
 
 scheduler_count() ->
 	erlang:system_info(schedulers).
+
+check_scheduler_bindings(Bool) ->
+	case check_scheduler_bindings() of
+		nok when Bool -> erlang:halt(13);
+		X -> X		
+	end.
 
 check_scheduler_bindings() ->
 	Bs = tuple_to_list(erlang:system_info(scheduler_bindings)),
@@ -53,6 +65,21 @@ hubs_only() ->
 
 set_hubs_only(Bool) when Bool == true orelse Bool == false ->
 	erlang:system_flag(scheduler_hubs_only, Bool).
+
+hub_process() ->
+	erlang:system_info(hub_process).
+
+set_hub_process(Bool) ->
+	erlang:system_flag(hub_process, Bool).
+
+hub_processes() ->
+	erlang:system_info(hub_processes).
+
+hub_processes_count() ->
+	erlang:system_info(hub_processes_count).
+
+hub_process_spawn_flag () ->
+	hub_process.
 
 
 % Conversion 
@@ -86,6 +113,19 @@ unset_cpu() ->
 	unset_scheduler().
 
 
+% Memory
+memory_allocation_policy() ->
+	case proc_mem_state() band 1 of 
+		0 -> default;
+		1 -> preferred
+	end.
+
+deferred_memory_allocation() ->
+	case proc_mem_state() band 2 of 
+		0 -> false;
+		2 -> true
+	end.
+
 %%
 %% Local Functions
 %%
@@ -110,3 +150,5 @@ scheduler_to_cpu(Scheduler, Bindings) when Scheduler =< 0 orelse Scheduler > len
 scheduler_to_cpu(Scheduler, Bindings) ->
 	lists:nth(Scheduler, Bindings).
 
+proc_mem_state() ->
+	erlang:system_info(proc_mem_state).

@@ -23,7 +23,7 @@ set_default() ->
 set_disabled() ->
     set_strategy(disabled).
 
-set_strategy (Strategy) ->
+set_strategy (Strategy) when is_atom(Strategy)  ->
 	scheduling:check_scheduler_bindings(),
 	StId = strategy_id(Strategy),
 	OldValue = erlang:system_flag(scheduler_ws_strategy, StId),
@@ -34,7 +34,7 @@ set_strategy (Strategy) ->
 %%
 
 strategies() ->
-	[{default, 0}, {disabled, 1}].
+	[{default, 0}, {disabled, 1}, {numa, 2}].
 
 strategy_name(StrategyId) ->
 	{Name, StrategyId} = lists:keyfind(StrategyId, 2, strategies()),

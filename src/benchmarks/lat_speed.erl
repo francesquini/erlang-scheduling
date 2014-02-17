@@ -1,6 +1,6 @@
 -module(lat_speed).
 
--export([run_tests/1, run_tests/5]).
+-export([run_tests/1, run_tests/5, run_warp/0]).
 
 %local export
 -export([sender_loop/6, receiver_loop/2, generate_payloads/2]).
@@ -11,6 +11,9 @@ combinations(idrouille) ->
 	[{0, 0}, {0, 1}, {0, 4}]; %idrouille
 combinations(idkonn) ->
 	[{0, 0}, {0, 12}, {0, 4}, {0, 1}]. %idkonn
+
+run_warp() ->
+	run_tests(warp).
 
 run_tests([Machine]) ->
 	run_tests(Machine);

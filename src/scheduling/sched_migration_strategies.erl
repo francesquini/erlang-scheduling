@@ -34,7 +34,7 @@ set_strategy (Strategy) ->
 %%
 
 strategies() ->
-	[{default, 0}, {disabled, 1}].
+	[{default, 0}, {disabled, 1}, {numa, 2}].
 
 strategy_name(StrategyId) ->
 	{Name, StrategyId} = lists:keyfind(StrategyId, 2, strategies()),

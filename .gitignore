@@ -1,3 +1,5 @@
 /ebin/
 /.tags
 /.tags_sorted_by_file
+/erlang-scheduling.sublime-project
+/erlang-scheduling.sublime-workspace

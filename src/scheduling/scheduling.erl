@@ -9,7 +9,6 @@
 	check_scheduler_bindings/0, check_scheduler_bindings/1,
 	set_all_strategies_default/0,
 	
-	hubs_only/0, set_hubs_only/1,	
 	hub_process/0, set_hub_process/1,
 	hub_processes/0, hub_processes_count/0,
 	hub_process_spawn_flag/0,
@@ -60,14 +59,7 @@ set_all_strategies_default() ->
 	sched_ip_strategies:cancel_scheduled_strategy_change(),
 	sched_ip_strategies:set_default(),
 	sched_migration_strategies:set_default(),
-	sched_ws_strategies:set_default(),
-	set_hubs_only(false).
-
-hubs_only() ->
-	erlang:system_info(scheduler_hubs_only).
-
-set_hubs_only(Bool) when Bool == true orelse Bool == false ->
-	erlang:system_flag(scheduler_hubs_only, Bool).
+	sched_ws_strategies:set_default().
 
 hub_process() ->
 	erlang:system_info(hub_process).
@@ -195,7 +187,7 @@ numa32_scheduler_distances() ->
 
 
 scheduler_set_distances(Dists) ->
-    [scheduler_distances(Line) || Line <- Dists];
+    [scheduler_distances(Line) || Line <- Dists],
     ok.
     
 scheduler_distances([From | Tos]) ->
@@ -204,8 +196,8 @@ scheduler_distances([From | Tos]) ->
 scheduler_distances(From, Tos) ->
     scheduler_distances(From, Tos, 1).
 
-scheduler_distances(From, [], _Pos) ->
+scheduler_distances(_From, _Tos=[], _Pos) ->
     ok;
 scheduler_distances(From, [To |Tos], Pos) ->    
-    erlang:system_flag(scheduler_distances, {From, To, Pos},
+    erlang:system_flag(scheduler_distances, {From, To, Pos}),
     scheduler_distances(From, Tos, Pos + 1).

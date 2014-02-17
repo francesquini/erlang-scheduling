@@ -56,7 +56,7 @@ set_circular() ->
 set_strategy (Strategy, Key) ->
 	scheduling:check_scheduler_bindings(),
 	StId = strategy_id(Strategy),
-	OldValue = erlang:system_flag(scheduler_ip_strategy, StId),
+	OldValue = erlang:system_flag(Key, StId),
 	strategy_name(OldValue).
 
 set_strategy_after (Strategy, After_CBS, hub) ->

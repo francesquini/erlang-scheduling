@@ -15,6 +15,8 @@
 		 set_default/0, 
 		 set_random/0,
 		 set_circular/0,
+		 set_compact/0,
+		 set_scatter/0,
 		 get_strategies/0
 		]).
 
@@ -52,6 +54,12 @@ set_random() ->
 set_circular() ->
 	set_regular_strategy(circular),
 	set_hub_strategy(random).
+set_compact() ->
+	set_regular_strategy(compact),
+	set_hub_strategy(compact).
+set_scatter() ->
+	set_regular_strategy(scatter),
+	set_hub_strategy(scatter).
 
 set_strategy (Strategy, Key) ->
 	scheduling:check_scheduler_bindings(),

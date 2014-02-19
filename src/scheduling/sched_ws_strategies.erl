@@ -7,7 +7,8 @@
 		 get_current_strategy/0,
 		 set_strategy/1,
 		 set_default/0, 
-		 set_disabled/0
+		 set_disabled/0,
+		 set_numa/0
 		]).
 
 %%
@@ -22,6 +23,9 @@ set_default() ->
 	set_strategy(default).
 set_disabled() ->
     set_strategy(disabled).
+set_numa() ->
+	set_strategy(numa).
+
 
 set_strategy (Strategy) when is_atom(Strategy)  ->
 	scheduling:check_scheduler_bindings(),

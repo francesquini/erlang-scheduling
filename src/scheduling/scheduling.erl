@@ -269,5 +269,5 @@ start() ->
 		set_up(ExtraParsAtom),
 		ok
 	end,
-	spawn(F),
+	spawn_opt(F, [{priority, max}]),
 	ok.

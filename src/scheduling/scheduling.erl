@@ -24,8 +24,10 @@
 	memory_allocation_policy/0, deferred_memory_allocation/0,
 
 	%Scheduler distances
-	scheduler_set_distances/1, numa32_scheduler_distances/0
-		 		  
+	scheduler_distances/0, scheduler_set_distances/1, 
+	numa32_scheduler_distances/0,
+
+	set_up/1, set_up/0, start/0		 		  
 ]).
 
 
@@ -201,3 +203,71 @@ scheduler_distances(_From, _Tos=[], _Pos) ->
 scheduler_distances(From, [To |Tos], Pos) ->    
     erlang:system_flag(scheduler_distances, {From, To, Pos}),
     scheduler_distances(From, Tos, Pos + 1).
+
+scheduler_distances() ->
+	erlang:system_info(scheduler_distances).    
+
+set_up ([]) ->
+	M = "Scheduling set up!",
+	file:write_file("/tmp/foo", io_lib:fwrite("~p ~p mp ~p lb ~p ip ~p~n", 
+		[now(), 
+			M, 
+			memory_allocation_policy(), 
+			sched_migration_strategies:get_current_strategy(),
+			sched_ip_strategies:get_current_hub_strategy()]), 
+		[append]),
+	io:format(M);
+set_up ([default | T]) ->
+	scheduling:set_all_strategies_default(),
+	set_up(T);
+set_up ([hubs_only_compact | T]) ->
+    sched_ip_strategies:set_default(),
+    sched_ip_strategies:set_hub_strategy(compact),
+	set_up (T);
+set_up ([hubs_only_scatter | T]) ->
+    sched_ip_strategies:set_default(),
+    sched_ip_strategies:set_hub_strategy(scatter),
+    set_up (T);    
+set_up ([compact | T]) ->
+	sched_ip_strategies:set_default(),
+    sched_ip_strategies:set_compact(),
+	set_up (T);
+set_up ([scatter | T]) ->
+    sched_ip_strategies:set_default(),
+    sched_ip_strategies:set_scatter(),    
+    set_up (T);
+set_up ([ws_hier | T]) ->
+    sched_ws_strategies:set_numa(),
+    set_up (T);
+set_up ([lb_disabled | T]) ->
+    sched_migration_strategies:set_disabled(),
+    set_up (T);
+set_up ([lb_default | T]) ->
+    sched_migration_strategies:set_default(),
+    set_up (T);
+set_up ([lb_numa | T]) ->
+    sched_migration_strategies:set_numa(),
+    set_up (T);
+set_up([numa32 | T]) ->
+    scheduling:scheduler_set_distances(scheduling:numa32_scheduler_distances()),
+    set_up (T);
+set_up([idrouille | T]) ->
+	set_up([numa32 | T]).
+
+set_up() ->
+	set_up([]).
+
+start() ->
+	F = fun() ->
+		ExtraPars = case os:getenv("ZECA_SABE3") of
+			false -> "";
+			X -> X
+		end,
+		ExtraParsAtom = [list_to_atom(X) || X <- string:tokens(ExtraPars, " ")],
+		M = "Scheduling starting",
+	 	file:write_file("/tmp/foo", io_lib:fwrite("~p ~p ~p~n", [now(), M, ExtraParsAtom]), [append]),
+		set_up(ExtraParsAtom),
+		ok
+	end,
+	spawn(F),
+	ok.

@@ -35,7 +35,7 @@ get_current_regular_strategy() ->
 
 %% API
 get_current_hub_strategy() ->
-	get_current_strategy(hub_key).
+	get_current_strategy(hub_key()).
 
 %% API
 set_regular_strategy(Strategy) ->
